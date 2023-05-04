@@ -9,11 +9,11 @@ import UIKit
 
 class MovieViewController: UIViewController {
     let movieController: MovieControllerInput
-    let childView = UIView()
-    let label01 = UILabel()
+    let movieThumb = UIView()
+    let filmTitleLabel = UILabel()
     let stackView = UIStackView()
-    let label02 = UILabel()
-    let rating = UILabel()
+    let movieDescription = UILabel()
+    let ratingLabel = UILabel()
     
     init(movieController: MovieControllerInput) {
         self.movieController = movieController
@@ -27,54 +27,66 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Child View
-        childView.translatesAutoresizingMaskIntoConstraints = false
-        childView.backgroundColor = .white
-        view.addSubview(childView)
+        // movieThumb
+        movieThumb.translatesAutoresizingMaskIntoConstraints = false
+        movieThumb.backgroundColor = .white
+        view.addSubview(movieThumb)
         
         NSLayoutConstraint.activate([
-            childView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            childView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            childView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            childView.heightAnchor.constraint(equalToConstant: 160)
+            movieThumb.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            movieThumb.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            movieThumb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            movieThumb.heightAnchor.constraint(equalToConstant: 160)
         ])
         
-        // Label01
-        label01.translatesAutoresizingMaskIntoConstraints = false
-        label01.text = "New Label 01"
-        label01.textColor = .white
-        view.addSubview(label01)
+        // filmTitleLabel
+        filmTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        filmTitleLabel.text = "Dune: Part Two (2023)"
+        filmTitleLabel.textColor = .white
+        view.addSubview(filmTitleLabel)
         
         NSLayoutConstraint.activate([
-            label01.topAnchor.constraint(equalTo: childView.bottomAnchor, constant: 16),
-            label01.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            label01.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            filmTitleLabel.topAnchor.constraint(equalTo: movieThumb.bottomAnchor, constant: 16),
+            filmTitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            filmTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        // StackView
+        // stackView
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = 16
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: label01.bottomAnchor, constant: 8),
+            stackView.topAnchor.constraint(equalTo: filmTitleLabel.bottomAnchor, constant: 8),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            stackView.heightAnchor.constraint(equalToConstant: 21)
+            //stackView.heightAnchor.constraint(equalToConstant: 21)
         ])
         
-        // Label02
-        label02.translatesAutoresizingMaskIntoConstraints = false
-        label02.text = "New Label 02"
-        label02.textColor = .white
-        stackView.addArrangedSubview(label02)
+        // movieDescription
+        movieDescription.translatesAutoresizingMaskIntoConstraints = false
+        movieDescription.text = "A boy becomes the Messiah of nomads on a desert planet that has giant worms that protect a commodity called Spice. Spice changes people into travelers, mystics and madmen. What price will he pay to become the new ruler of their universe?"
+        movieDescription.textColor = .white
+        movieDescription.numberOfLines = 2
+        movieDescription.lineBreakMode = .byTruncatingTail
+        stackView.addArrangedSubview(movieDescription)
         
-        // Rating
-        rating.translatesAutoresizingMaskIntoConstraints = false
-        rating.text = "5.0"
-        rating.textColor = .white
-        stackView.addArrangedSubview(rating)
+        // ratingLabel
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        ratingLabel.text = "5.0"
+        ratingLabel.textColor = .white
+        ratingLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        stackView.addArrangedSubview(ratingLabel)
+        
+        // Constraints for movieDescription and ratingLabel
+        NSLayoutConstraint.activate([
+            movieDescription.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            //movieDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
+            ratingLabel.widthAnchor.constraint(equalToConstant: 30),
+            ratingLabel.centerYAnchor.constraint(equalTo: movieDescription.centerYAnchor),
+        ])
+
     }
     
     func blah() {
