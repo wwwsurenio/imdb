@@ -12,8 +12,10 @@ class MovieViewController: UIViewController {
     let movieThumb = UIView()
     let filmTitleLabel = UILabel()
     let stackView = UIStackView()
-    let movieDescription = UILabel()
+    let movieDescriptionLabel = UILabel()
     let ratingLabel = UILabel()
+    let emptyView = UIView()
+    let ratingContainerView = UIView()
     
     init(movieController: MovieControllerInput) {
         self.movieController = movieController
@@ -43,6 +45,7 @@ class MovieViewController: UIViewController {
         filmTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         filmTitleLabel.text = "Dune: Part Two (2023)"
         filmTitleLabel.textColor = .white
+        filmTitleLabel.numberOfLines = 2
         view.addSubview(filmTitleLabel)
         
         NSLayoutConstraint.activate([
@@ -65,28 +68,31 @@ class MovieViewController: UIViewController {
         ])
         
         // movieDescription
-        movieDescription.translatesAutoresizingMaskIntoConstraints = false
-        movieDescription.text = "A boy becomes the Messiah of nomads on a desert planet that has giant worms that protect a commodity called Spice. Spice changes people into travelers, mystics and madmen. What price will he pay to become the new ruler of their universe?"
-        movieDescription.textColor = .white
-        movieDescription.numberOfLines = 2
-        movieDescription.lineBreakMode = .byTruncatingTail
-        stackView.addArrangedSubview(movieDescription)
+        movieDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieDescriptionLabel.text = "A boy becomes the Messiah of nomads on a desert planet that has giant worms that protect a commodity called Spice. Spice changes people into travelers, mystics and madmen. What price will he pay to become the new ruler of their universe?"
+        movieDescriptionLabel.textColor = .white
+        movieDescriptionLabel.numberOfLines = 5
+        movieDescriptionLabel.lineBreakMode = .byTruncatingTail
+        stackView.addArrangedSubview(movieDescriptionLabel)
         
         // ratingLabel
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.text = "5.0"
         ratingLabel.textColor = .white
         ratingLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-        stackView.addArrangedSubview(ratingLabel)
+        stackView.addArrangedSubview(ratingContainerView)
+        ratingContainerView.addSubview(ratingLabel)
+        
         
         // Constraints for movieDescription and ratingLabel
         NSLayoutConstraint.activate([
-            movieDescription.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            ratingContainerView.widthAnchor.constraint(equalTo: ratingLabel.widthAnchor),
+            movieDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
             //movieDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
             ratingLabel.widthAnchor.constraint(equalToConstant: 30),
-            ratingLabel.centerYAnchor.constraint(equalTo: movieDescription.centerYAnchor),
+            //            ratingLabel.centerYAnchor.constraint(equalTo: movieDescriptionLabel.centerYAnchor),
         ])
-
+        
     }
     
     func blah() {
