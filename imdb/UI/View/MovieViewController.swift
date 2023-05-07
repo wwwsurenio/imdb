@@ -14,7 +14,6 @@ class MovieViewController: UIViewController {
     let stackView = UIStackView()
     let movieDescriptionLabel = UILabel()
     let ratingLabel = UILabel()
-    let emptyView = UIView()
     let ratingContainerView = UIView()
     
     init(movieController: MovieControllerInput) {
@@ -63,8 +62,7 @@ class MovieViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: filmTitleLabel.bottomAnchor, constant: 8),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            //stackView.heightAnchor.constraint(equalToConstant: 21)
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
         
         // movieDescription
@@ -75,6 +73,11 @@ class MovieViewController: UIViewController {
         movieDescriptionLabel.lineBreakMode = .byTruncatingTail
         stackView.addArrangedSubview(movieDescriptionLabel)
         
+        // Constraints for movieDescription
+        NSLayoutConstraint.activate([
+            movieDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
+        ])
+        
         // ratingLabel
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.text = "5.0"
@@ -83,16 +86,11 @@ class MovieViewController: UIViewController {
         stackView.addArrangedSubview(ratingContainerView)
         ratingContainerView.addSubview(ratingLabel)
         
-        
-        // Constraints for movieDescription and ratingLabel
+        // Constraints for ratingLabel
         NSLayoutConstraint.activate([
             ratingContainerView.widthAnchor.constraint(equalTo: ratingLabel.widthAnchor),
-            movieDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-            //movieDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
-            ratingLabel.widthAnchor.constraint(equalToConstant: 30),
-            //            ratingLabel.centerYAnchor.constraint(equalTo: movieDescriptionLabel.centerYAnchor),
+            ratingLabel.widthAnchor.constraint(equalToConstant: 30)
         ])
-        
     }
     
     func blah() {
