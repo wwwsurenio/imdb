@@ -27,7 +27,23 @@ class MovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tableView = UITableView()
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .white
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        //        setupUI()
+    }
+    
+    fileprivate func setupUI() {
         // movieThumb
         movieThumb.translatesAutoresizingMaskIntoConstraints = false
         movieThumb.backgroundColor = .white
@@ -62,7 +78,8 @@ class MovieViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: filmTitleLabel.bottomAnchor, constant: 8),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8)
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            //stackView.heightAnchor.constraint(equalToConstant: 21)
         ])
         
         // movieDescription
@@ -73,11 +90,6 @@ class MovieViewController: UIViewController {
         movieDescriptionLabel.lineBreakMode = .byTruncatingTail
         stackView.addArrangedSubview(movieDescriptionLabel)
         
-        // Constraints for movieDescription
-        NSLayoutConstraint.activate([
-            movieDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
-        ])
-        
         // ratingLabel
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.text = "5.0"
@@ -86,14 +98,30 @@ class MovieViewController: UIViewController {
         stackView.addArrangedSubview(ratingContainerView)
         ratingContainerView.addSubview(ratingLabel)
         
-        // Constraints for ratingLabel
+        
+        // Constraints for movieDescription and ratingLabel
         NSLayoutConstraint.activate([
             ratingContainerView.widthAnchor.constraint(equalTo: ratingLabel.widthAnchor),
-            ratingLabel.widthAnchor.constraint(equalToConstant: 30)
+            movieDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            //movieDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
+            ratingLabel.widthAnchor.constraint(equalToConstant: 30),
+            //            ratingLabel.centerYAnchor.constraint(equalTo: movieDescriptionLabel.centerYAnchor),
         ])
     }
     
     func blah() {
         // do something
+    }
+}
+
+extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filmDB.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Здесь настройка ячейки
+        let films = filmDB[indexPath.row]
+        fatalError()
     }
 }
