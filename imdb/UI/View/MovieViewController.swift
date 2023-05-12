@@ -8,13 +8,8 @@
 import UIKit
 
 class MovieViewController: UIViewController {
+    var movies: [MovieModel] = [MovieModel]()
     let movieController: MovieControllerInput
-    let movieThumb = UIView()
-    let filmTitleLabel = UILabel()
-    let stackView = UIStackView()
-    let movieDescriptionLabel = UILabel()
-    let ratingLabel = UILabel()
-    let ratingContainerView = UIView()
     
     init(movieController: MovieControllerInput) {
         self.movieController = movieController
@@ -27,7 +22,9 @@ class MovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tableView = UITableView()
+        createMovieArray()
+        
+        let tableView: UITableView = UITableView(frame: .zero, style: .plain)
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
@@ -37,76 +34,10 @@ class MovieViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         //        setupUI()
-    }
-    
-    fileprivate func setupUI() {
-        // movieThumb
-        movieThumb.translatesAutoresizingMaskIntoConstraints = false
-        movieThumb.backgroundColor = .white
-        view.addSubview(movieThumb)
-        
-        NSLayoutConstraint.activate([
-            movieThumb.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            movieThumb.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            movieThumb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            movieThumb.heightAnchor.constraint(equalToConstant: 160)
-        ])
-        
-        // filmTitleLabel
-        filmTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        filmTitleLabel.text = "Dune: Part Two (2023)"
-        filmTitleLabel.textColor = .white
-        filmTitleLabel.numberOfLines = 2
-        view.addSubview(filmTitleLabel)
-        
-        NSLayoutConstraint.activate([
-            filmTitleLabel.topAnchor.constraint(equalTo: movieThumb.bottomAnchor, constant: 16),
-            filmTitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            filmTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        // stackView
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        view.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: filmTitleLabel.bottomAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            //stackView.heightAnchor.constraint(equalToConstant: 21)
-        ])
-        
-        // movieDescription
-        movieDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieDescriptionLabel.text = "A boy becomes the Messiah of nomads on a desert planet that has giant worms that protect a commodity called Spice. Spice changes people into travelers, mystics and madmen. What price will he pay to become the new ruler of their universe?"
-        movieDescriptionLabel.textColor = .white
-        movieDescriptionLabel.numberOfLines = 5
-        movieDescriptionLabel.lineBreakMode = .byTruncatingTail
-        stackView.addArrangedSubview(movieDescriptionLabel)
-        
-        // ratingLabel
-        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        ratingLabel.text = "5.0"
-        ratingLabel.textColor = .white
-        ratingLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-        stackView.addArrangedSubview(ratingContainerView)
-        ratingContainerView.addSubview(ratingLabel)
-        
-        
-        // Constraints for movieDescription and ratingLabel
-        NSLayoutConstraint.activate([
-            ratingContainerView.widthAnchor.constraint(equalTo: ratingLabel.widthAnchor),
-            movieDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-            //movieDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
-            ratingLabel.widthAnchor.constraint(equalToConstant: 30),
-            //            ratingLabel.centerYAnchor.constraint(equalTo: movieDescriptionLabel.centerYAnchor),
-        ])
     }
     
     func blah() {
@@ -114,14 +45,38 @@ class MovieViewController: UIViewController {
     }
 }
 
+//MARK: - TableViewDelegate
+
 extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filmDB.count
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Здесь настройка ячейки
-        let films = filmDB[indexPath.row]
-        fatalError()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        let currentLastItem = movies[indexPath.row]
+        cell.textLabel?.text = currentLastItem.movieTitle
+        return cell
+    }
+    
+    func createMovieArray() {
+        movies.append(MovieModel(
+            moviePoster: #imageLiteral(resourceName:"TheShawshankRedemption"),
+            movieTitle: "The Shawshank Redemption",
+            movieDescription: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+            movieRating: 9.3))
+        movies.append(MovieModel(
+            moviePoster: #imageLiteral(resourceName:"TheGodfather"),
+            movieTitle: "The Godfather",
+            movieDescription: "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
+            movieRating: 9.2))
+        movies.append(MovieModel(
+            moviePoster: #imageLiteral(resourceName:"TheDarkKnight"),
+            movieTitle: "The Dark Knight",
+            movieDescription: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+            movieRating: 9.0))
     }
 }
