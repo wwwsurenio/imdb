@@ -73,6 +73,7 @@ class MovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        movieController.get()
         
         let tableView: UITableView = UITableView(frame: .zero, style: .plain)
         view.addSubview(tableView)
