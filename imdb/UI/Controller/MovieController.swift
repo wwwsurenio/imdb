@@ -9,6 +9,7 @@ import Foundation
 
 protocol MovieControllerInput {
     func get()
+    func parseJSON(_ movieData: Data) -> MovieModel?
 }
 
 class MovieController: NSObject {
@@ -29,6 +30,12 @@ extension MovieController: MovieControllerInput {
         let task = session.dataTask(with: request)
         task.resume()
     }
+    
+    func parseJSON(_ movieData: Data) -> MovieModel? {
+        
+        return nil
+    }
+    
 }
 
 extension MovieController: URLSessionDataDelegate {
