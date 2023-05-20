@@ -7,13 +7,17 @@
 
 import Foundation
 
-struct MovieData: Decodable {
-    let poster_path: String
+struct Response: Codable {
+    let page: Int
+    let results: [MovieResult]
+    let total_pages: Int
+    let total_results: Int
+}
+
+struct MovieResult: Codable {
     let original_title: String
     let overview: String
+    let poster_path: String
     let vote_average: Double
 }
 
-struct MovieResults: Decodable {
-    let results: [MovieData]
-}

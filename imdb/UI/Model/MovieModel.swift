@@ -8,7 +8,7 @@ import UIKit
 
 struct MovieModel {
     
-    let moviePoster: UIImage
+    let moviePoster: UIImage?
     let movieTitle: String
     let movieDescription: String
     let movieRating: Double
