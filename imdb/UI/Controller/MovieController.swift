@@ -15,13 +15,14 @@ protocol MovieControllerInput {
 
 class MovieController: NSObject {
     
+    //why making movieModels a static var does not work in our case?
+    var movieModels: [MovieModel] = []
     let apiURL = "https://api.themoviedb.org/3/movie/popular"
     let apiKey = "b859aa49388105f4ed7ff53a89a40f66"
 }
 
 // MARK: - MovieControllerInput
 extension MovieController: MovieControllerInput {
-    
     
     func get() {
         let session = URLSession(configuration: .default)
@@ -36,6 +37,8 @@ extension MovieController: MovieControllerInput {
             URLQueryItem(name: "api_key", value: apiKey)
         ])
         
+        //The closure has three inputs: data, response, and error.
+        //These hold the information we get back from the server.
         let task = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let self = self else { return }
             
@@ -53,10 +56,10 @@ extension MovieController: MovieControllerInput {
                 let movieModels = try self.parseJSON(jsonData: data)
                 
                 // Print the parsed movie data
-                for movieModel in movieModels {
-                    print("Movie Title: \(movieModel.movieTitle)")
-                    print("Movie Description: \(movieModel.movieDescription)")
-                    print("Movie Rating: \(movieModel.movieRating)")
+                for item in movieModels {
+                    print("Movie Title: \(item.movieTitle)")
+                    print("Movie Description: \(item.movieDescription)")
+                    print("Movie Rating: \(item.movieRating)")
                     print("-----")
                 }
                 
@@ -77,7 +80,7 @@ extension MovieController: MovieControllerInput {
         let decoder = JSONDecoder()
         let response = try decoder.decode(Response.self, from: jsonData)
         
-        let movieModels = response.results.compactMap { (result: MovieResult) -> MovieModel? in
+        movieModels = response.results.compactMap { (result: MovieResult) -> MovieModel? in
             guard let imageURL = URL(string: "https://image.tmdb.org/t/p/w500" + result.poster_path),
                   let imageData = try? Data(contentsOf: imageURL),
                   let moviePoster = UIImage(data: imageData) else {
