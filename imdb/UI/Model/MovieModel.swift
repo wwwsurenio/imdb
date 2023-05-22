@@ -7,8 +7,7 @@
 import UIKit
 
 struct MovieModel {
-    
-    let moviePoster: UIImage?
+    let moviePosterURL: URL
     let movieTitle: String
     let movieDescription: String
     let movieRating: Double
