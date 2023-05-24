@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5906657F2A17A871008DF66E /* MovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906657E2A17A871008DF66E /* MovieData.swift */; };
 		59DC208629FBD17900D40E87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DC208529FBD17900D40E87 /* AppDelegate.swift */; };
 		59DC208829FBD17900D40E87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DC208729FBD17900D40E87 /* SceneDelegate.swift */; };
 		59DC208A29FBD17900D40E87 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DC208929FBD17900D40E87 /* MovieViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5906657E2A17A871008DF66E /* MovieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieData.swift; sourceTree = "<group>"; };
 		59DC208229FBD17900D40E87 /* imdb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imdb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DC208529FBD17900D40E87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59DC208729FBD17900D40E87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				59DC20A229FBD39C00D40E87 /* MovieModel.swift */,
+				5906657E2A17A871008DF66E /* MovieData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				59DC20A129FBD38600D40E87 /* MovieController.swift in Sources */,
 				59DC208A29FBD17900D40E87 /* MovieViewController.swift in Sources */,
 				59DC20A329FBD39C00D40E87 /* MovieModel.swift in Sources */,
+				5906657F2A17A871008DF66E /* MovieData.swift in Sources */,
 				59DC208629FBD17900D40E87 /* AppDelegate.swift in Sources */,
 				59DC208829FBD17900D40E87 /* SceneDelegate.swift in Sources */,
 				59DC20A72A09232900D40E87 /* MovieTableCell.swift in Sources */,
