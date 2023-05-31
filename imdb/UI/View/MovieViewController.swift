@@ -27,7 +27,7 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         movieController.get()
         movieController.delegate = self
-        
+       
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -39,6 +39,18 @@ class MovieViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MovieTableCell.self, forCellReuseIdentifier: "cellId")
+        
+        // Embed the MovieViewController in a UINavigationController
+        let navigationController = UINavigationController(rootViewController: self)
+        navigationController.navigationBar.prefersLargeTitles = true
+        
+        // Hide the navigation bar's large title view
+        navigationController.navigationBar.prefersLargeTitles = false
+        
+        // Set the rootViewController of the window to the UINavigationController
+        let window = UIApplication.shared.windows.first
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
     
     func blah() {
