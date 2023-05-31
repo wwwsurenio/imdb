@@ -98,6 +98,12 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedMovie = movies[indexPath.row]
+        let movieDetailsVC = MovieDetailsViewController(movie: selectedMovie)
+        navigationController?.pushViewController(movieDetailsVC, animated: true)
+    }
 }
 
 extension MovieViewController: MovieControllerDelegate {
