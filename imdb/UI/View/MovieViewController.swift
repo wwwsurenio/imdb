@@ -9,8 +9,10 @@ import UIKit
 
 class MovieViewController: UIViewController {
     var movies: [MovieModel] = []
+    var selectedMovieID: Int?
     let movieController: MovieControllerInput
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
+    
     
     var imageCache = [URL: UIImage]()
     
@@ -27,6 +29,8 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         movieController.get()
         movieController.delegate = self
+        
+        view.backgroundColor = .white
        
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +104,14 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedMovie = movies[indexPath.row]
+        let movie = movies[indexPath.row]
+        selectedMovieID = movie.movieID
+
+        // Find the movie object based on the selected movie ID
+        guard let selectedMovie = movies.first(where: { $0.movieID == selectedMovieID }) else {
+            return
+        }
+
         let movieDetailsVC = MovieDetailsViewController(movie: selectedMovie)
         navigationController?.pushViewController(movieDetailsVC, animated: true)
     }

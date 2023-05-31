@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import UIKit
+
+
+
+class MovieDetailsController {
+    let apiURL = "https://api.themoviedb.org/3/movie/"
+    let apiKey = "b859aa49388105f4ed7ff53a89a40f66"
+    
+}

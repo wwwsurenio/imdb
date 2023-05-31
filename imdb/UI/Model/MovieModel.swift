@@ -11,4 +11,5 @@ struct MovieModel {
     let movieTitle: String
     let movieDescription: String
     let movieRating: Double
+    let movieID: Int
 }
