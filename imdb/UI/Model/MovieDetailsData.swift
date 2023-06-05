@@ -7,15 +7,11 @@
 
 import Foundation
 
-struct Response: Codable {
-    let results: [MovieResult]
-}
-
-struct MovieResult: Codable {
-    let id: Int
+struct MovieDetailsData: Codable {
     let original_title: String
     let overview: String
-    let poster_path: String
+    let poster_path: URL
+    let release_date: String
     let vote_average: Double
+    let vote_count: Int
 }
-

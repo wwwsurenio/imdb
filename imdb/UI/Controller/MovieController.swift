@@ -93,7 +93,8 @@ extension MovieController: MovieControllerInput {
                 moviePosterURL: imageURL,
                 movieTitle: result.original_title,
                 movieDescription: result.overview,
-                movieRating: result.vote_average
+                movieRating: result.vote_average,
+                movieID: result.id
             )
         }
         return movieModels

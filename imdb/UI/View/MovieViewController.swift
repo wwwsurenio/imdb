@@ -9,8 +9,10 @@ import UIKit
 
 class MovieViewController: UIViewController {
     var movies: [MovieModel] = []
+    var selectedMovieID: Int?
     let movieController: MovieControllerInput
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
+    
     
     var imageCache = [URL: UIImage]()
     
@@ -28,6 +30,8 @@ class MovieViewController: UIViewController {
         movieController.get()
         movieController.delegate = self
         
+        view.backgroundColor = .white
+       
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -39,6 +43,18 @@ class MovieViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MovieTableCell.self, forCellReuseIdentifier: "cellId")
+        
+        // Embed the MovieViewController in a UINavigationController
+        let navigationController = UINavigationController(rootViewController: self)
+        navigationController.navigationBar.prefersLargeTitles = true
+        
+        // Hide the navigation bar's large title view
+        navigationController.navigationBar.prefersLargeTitles = false
+        
+        // Set the rootViewController of the window to the UINavigationController
+        let window = UIApplication.shared.windows.first
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
     
     func blah() {
@@ -85,6 +101,19 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        selectedMovieID = movie.movieID
+
+        // Find the movie object based on the selected movie ID
+        guard let selectedMovie = movies.first(where: { $0.movieID == selectedMovieID }) else {
+            return
+        }
+
+        let movieDetailsVC = MovieDetailsViewController(movie: selectedMovie)
+        navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
 }
 
