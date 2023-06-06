@@ -8,10 +8,28 @@
 import Foundation
 import UIKit
 
+protocol MovieDetailsControllerInput: AnyObject {
+    func get()
+    var delegate: MovieDetailsControllerDelegate? { get set }
+}
+
+protocol MovieDetailsControllerDelegate: AnyObject {
+    func recievedData(movieDetailsModels: [MovieDetailsModel])
+}
 
 
 class MovieDetailsController {
-    let apiURL = "https://api.themoviedb.org/3/movie/"
-    let apiKey = "b859aa49388105f4ed7ff53a89a40f66"
+    private let movie: MovieModel
     
+    var delegate: MovieDetailsControllerDelegate?
+    
+    init(movie: MovieModel) {
+        self.movie = movie
+    }
+}
+
+extension MovieDetailsController: MovieDetailsControllerInput {
+    func get() {
+        MoviesAPI.details(movieID: 1)
+    }
 }
