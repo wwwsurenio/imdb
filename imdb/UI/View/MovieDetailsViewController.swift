@@ -29,24 +29,6 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        titleLabel.text = "Movie Title: \(movie.movieTitle)"
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleLabel)
-        
-        overviewLabel.text = "Movie Overview: Loading..."
-        overviewLabel.textAlignment = .center
-        overviewLabel.font = UIFont.systemFont(ofSize: 18)
-        overviewLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(overviewLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-            overviewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20)
-        ])
         
         movieDetailsController.delegate = self
         movieDetailsController.get()
