@@ -111,8 +111,9 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
         guard let selectedMovie = movies.first(where: { $0.movieID == selectedMovieID }) else {
             return
         }
+        let movieDetailsController = MovieDetailsController(movie: selectedMovie)
+        let movieDetailsVC = MovieDetailsViewController(movie: selectedMovie, movieDetailsController: movieDetailsController)
 
-        let movieDetailsVC = MovieDetailsViewController(movie: selectedMovie)
         navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
 }
