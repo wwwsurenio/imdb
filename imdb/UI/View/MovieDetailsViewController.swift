@@ -55,9 +55,15 @@ class MovieDetailsViewController: UIViewController {
 
 extension MovieDetailsViewController: MovieDetailsControllerDelegate {
     func receivedData(movieDetailsModel: MovieDetailsModel) {
+    }
+    
+    func receivedData(movieDetailsModels: [MovieDetailsModel]) {
+        guard let movieDetailsModel = movieDetailsModels.first else {
+            return
+        }
+        
         DispatchQueue.main.async { [weak self] in
             self?.overviewLabel.text = "Movie Overview: \(movieDetailsModel.movieOverview)"
         }
     }
 }
-

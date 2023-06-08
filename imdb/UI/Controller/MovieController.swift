@@ -46,14 +46,6 @@ extension MovieController: MovieControllerInput {
             do {
                 let movieModels = try self.parseJSON(jsonData: data)
                 
-                // Print the parsed movie data
-                for item in movieModels {
-                    print("Movie Title: \(item.movieTitle)")
-                    print("Movie Description: \(item.movieDescription)")
-                    print("Movie Rating: \(item.movieRating)")
-                    print("-----")
-                }
-                
                 // Use the parsed movieModels array
                 DispatchQueue.main.async {
                     self.delegate?.recievedData(movieModels: movieModels)
