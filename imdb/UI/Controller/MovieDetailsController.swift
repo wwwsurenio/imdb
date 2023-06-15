@@ -52,7 +52,7 @@ extension MovieDetailsController: MovieDetailsControllerInput {
                     let movie = Movie(
                         movieTitle: movieDetailsData.original_title,
                         movieOverview: movieDetailsData.overview,
-                        moviePosterURL: URL(string: movieDetailsData.poster_path)!,
+                        moviePosterURL: movieDetailsData.poster_path,
                         movieReleaseDate: movieDetailsData.release_date,
                         movieVote: movieDetailsData.vote_average,
                         movieVoteCount: movieDetailsData.vote_count
@@ -60,7 +60,7 @@ extension MovieDetailsController: MovieDetailsControllerInput {
                     
                     let movieDetailsModel = MovieDetailsModel(movies: [movie])
                     
-                    self.delegate?.receivedData(movieDetailsModel: [movieDetailsModel])
+                    self.delegate?.receivedData(movieDetailsModel: movieDetailsModel)
                 }
             } catch {
                 print("Parsing JSON failed: \(error)")

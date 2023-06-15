@@ -10,7 +10,9 @@ import UIKit
 
 class MovieDetailsViewController: UIViewController {
     let movieDetailsController: MovieDetailsController
-    var movie = [MovieDetailsModel]()
+	var movie: MovieDetailsModel?
+
+	let nameLabel = UILabel()
     
     init(movieID: Int, movieDetailsController: MovieDetailsController) {
         self.movieDetailsController = movieDetailsController
@@ -33,9 +35,8 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func setupUI() {
-        let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = movie.movieTitle // Display the movie name
+		// Display the movie name
         
         view.addSubview(nameLabel)
         
@@ -50,5 +51,7 @@ class MovieDetailsViewController: UIViewController {
 extension MovieDetailsViewController: MovieDetailsControllerDelegate {
     func receivedData(movieDetailsModel: MovieDetailsModel) {
         movie = movieDetailsModel
+
+		nameLabel.text = movie?.movies.first?.movieTitle
     }
 }
