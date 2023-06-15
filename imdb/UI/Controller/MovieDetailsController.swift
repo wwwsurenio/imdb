@@ -18,12 +18,12 @@ protocol MovieDetailsControllerDelegate: AnyObject {
 }
 
 class MovieDetailsController {
-    private let movie: MovieModel
+    let movieID: Int
     
     var delegate: MovieDetailsControllerDelegate?
     
-    init(movie: MovieModel) {
-        self.movie = movie
+    init(movieID: Int) {
+        self.movieID = movieID
     }
 }
 
@@ -31,7 +31,7 @@ extension MovieDetailsController: MovieDetailsControllerInput {
     func get() {
         let session = URLSession(configuration: .default)
     
-        let task = session.dataTask(withAPI: MoviesAPI.details(movieID: movie.movieID)) { [weak self] (data, response, error) in
+        let task = session.dataTask(withAPI: MoviesAPI.details(movieID: movieID)) { [weak self] (data, response, error) in
             guard let self = self else { return }
             
             if let error = error {
@@ -73,7 +73,7 @@ extension MovieDetailsController: MovieDetailsControllerInput {
             }
         }
         
-        print("Start loading movie details for movie ID: \(movie.movieID)")
+        print("Start loading movie details for movie ID: \(movieID)")
         task.resume()
     }
     

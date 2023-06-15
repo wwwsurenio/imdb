@@ -9,7 +9,6 @@ import UIKit
 
 class MovieViewController: UIViewController {
     var movies: [MovieModel] = []
-    var selectedMovieID: Int?
     let movieController: MovieControllerInput
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
@@ -20,7 +19,7 @@ class MovieViewController: UIViewController {
         self.movieController = movieController
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -105,15 +104,14 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = movies[indexPath.row]
-        selectedMovieID = movie.movieID
+        var selectedMovieID = movie.movieID
 
         // Find the movie object based on the selected movie ID
         guard let selectedMovie = movies.first(where: { $0.movieID == selectedMovieID }) else {
             return
         }
-        let movieDetailsController = MovieDetailsController(movie: selectedMovie)
-        let movieDetailsVC = MovieDetailsViewController(movie: selectedMovie, movieDetailsController: movieDetailsController)
-
+        let movieDetailsController = MovieDetailsController(movieID: selectedMovieID)
+        let movieDetailsVC = MovieDetailsViewController(movieID: selectedMovieID, movieDetailsController: movieDetailsController)
         navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
 }
