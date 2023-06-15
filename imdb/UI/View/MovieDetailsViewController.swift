@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
-    let movieID: Int
     let movieDetailsController: MovieDetailsController
+    var movie = [MovieDetailsModel]()
     
     init(movieID: Int, movieDetailsController: MovieDetailsController) {
-        self.movieID = movieID
         self.movieDetailsController = movieDetailsController
         
         super.init(nibName: nil, bundle: nil)
@@ -27,14 +26,29 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupUI()
         
         movieDetailsController.delegate = self
         movieDetailsController.get()
+    }
+    
+    private func setupUI() {
+        let nameLabel = UILabel()
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.text = movie.movieTitle // Display the movie name
+        
+        view.addSubview(nameLabel)
+        
+        // Set constraints for the label
+        NSLayoutConstraint.activate([
+            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nameLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }
 
 extension MovieDetailsViewController: MovieDetailsControllerDelegate {
     func receivedData(movieDetailsModel: MovieDetailsModel) {
-        
+        movie = movieDetailsModel
     }
 }

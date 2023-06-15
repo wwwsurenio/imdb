@@ -30,7 +30,7 @@ class MovieDetailsController {
 extension MovieDetailsController: MovieDetailsControllerInput {
     func get() {
         let session = URLSession(configuration: .default)
-    
+        
         let task = session.dataTask(withAPI: MoviesAPI.details(movieID: movieID)) { [weak self] (data, response, error) in
             guard let self = self else { return }
             
@@ -47,26 +47,20 @@ extension MovieDetailsController: MovieDetailsControllerInput {
             do {
                 let movieDetailsData = try self.parseJSON(jsonData: data)
                 
-                // Print the parsed movie details data
-                print("Movie Title: \(movieDetailsData.original_title)")
-                print("Movie Overview: \(movieDetailsData.overview)")
-                print("Movie Poster URL: \(movieDetailsData.poster_path)")
-                print("Movie Release Date: \(movieDetailsData.release_date)")
-                print("Movie Vote: \(movieDetailsData.vote_average)")
-                print("Movie Vote Count: \(movieDetailsData.vote_count)")
-                print("-----")
-                
-                // Use the parsed movieDetailsData
+                // Use the parsed movieDetailsData and complete URL
                 DispatchQueue.main.async {
-                    let movieDetailsModel = MovieDetailsModel(
+                    let movie = Movie(
                         movieTitle: movieDetailsData.original_title,
                         movieOverview: movieDetailsData.overview,
-                        moviePosterURL: movieDetailsData.poster_path,
+                        moviePosterURL: URL(string: movieDetailsData.poster_path)!,
                         movieReleaseDate: movieDetailsData.release_date,
                         movieVote: movieDetailsData.vote_average,
                         movieVoteCount: movieDetailsData.vote_count
                     )
-                    self.delegate?.receivedData(movieDetailsModel: movieDetailsModel)
+                    
+                    let movieDetailsModel = MovieDetailsModel(movies: [movie])
+                    
+                    self.delegate?.receivedData(movieDetailsModel: [movieDetailsModel])
                 }
             } catch {
                 print("Parsing JSON failed: \(error)")
