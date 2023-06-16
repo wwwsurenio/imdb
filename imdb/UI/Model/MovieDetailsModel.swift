@@ -8,10 +8,6 @@
 import Foundation
 
 struct MovieDetailsModel {
-    let movies: [Movie]
-}
-
-struct Movie {
     let movieTitle: String
     let movieOverview: String
     let moviePosterURL: URL

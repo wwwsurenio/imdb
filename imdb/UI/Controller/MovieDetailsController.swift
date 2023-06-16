@@ -49,7 +49,7 @@ extension MovieDetailsController: MovieDetailsControllerInput {
                 
                 // Use the parsed movieDetailsData and complete URL
                 DispatchQueue.main.async {
-                    let movie = Movie(
+                    let movie = MovieDetailsModel(
                         movieTitle: movieDetailsData.original_title,
                         movieOverview: movieDetailsData.overview,
                         moviePosterURL: movieDetailsData.poster_path,
@@ -58,7 +58,7 @@ extension MovieDetailsController: MovieDetailsControllerInput {
                         movieVoteCount: movieDetailsData.vote_count
                     )
                     
-                    let movieDetailsModel = MovieDetailsModel(movies: [movie])
+                    let movieDetailsModel = movie
                     
                     self.delegate?.receivedData(movieDetailsModel: movieDetailsModel)
                 }
@@ -77,3 +77,5 @@ extension MovieDetailsController: MovieDetailsControllerInput {
         return movieDetailsData
     }
 }
+
+//
