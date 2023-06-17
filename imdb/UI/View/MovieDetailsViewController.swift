@@ -15,6 +15,8 @@ class MovieDetailsViewController: UIViewController {
     let nameLabel = UILabel()
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
+    var imageCache = [URL: UIImage]()
+    
     init(movieID: Int, movieDetailsController: MovieDetailsController) {
         self.movieDetailsController = movieDetailsController
         
@@ -33,41 +35,36 @@ class MovieDetailsViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        
+        tableView.register(MovieDetailsTableCell.self, forCellReuseIdentifier: "MovieCell")
+
         
         movieDetailsController.delegate = self
         movieDetailsController.get()
     }
     
     private func setupUI() {
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        // Display the movie name
-        
-        view.addSubview(nameLabel)
-        
-        // Set constraints for the label
-        NSLayoutConstraint.activate([
-            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-        
         // Add the table view to the view hierarchy and set its constraints
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
 }
 
 extension MovieDetailsViewController: MovieDetailsControllerDelegate {
     func receivedData(movieDetailsModel: MovieDetailsModel) {
         movie = movieDetailsModel
-        
-        nameLabel.text = movie?.movieTitle
+
+        tableView.register(MovieDetailsTableCell.self, forCellReuseIdentifier: "MovieCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
     }
 }
 
@@ -79,9 +76,43 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        cell.textLabel?.text = "Row \(indexPath.row + 1)"
-        movie?.moviePosterURL
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieDetailsTableCell
+        
+        // Configure the cell with movie details based on the row index
+        switch indexPath.row {
+        case 0:
+                if let moviePosterURL = movie?.moviePosterURL {
+                    if let cachedImage = imageCache[moviePosterURL] {
+                        cell.moviePoster = cachedImage
+                    } else {
+                        cell.moviePoster = UIImage(named: "placeholderImage") // Placeholder image while loading
+                        DispatchQueue.global().async { [weak self] in
+                            if let imageData = try? Data(contentsOf: moviePosterURL) {
+                                let moviePoster = UIImage(data: imageData)
+                                self?.imageCache[moviePosterURL] = moviePoster
+                                DispatchQueue.main.async {
+                                    cell.moviePoster = moviePoster
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    cell.moviePoster = nil
+                }
+        case 1:
+            cell.movieTitle = movie?.movieTitle
+        case 2:
+            cell.movieVote = movie?.movieVote
+            cell.movieVoteCount = movie?.movieVoteCount
+        case 3:
+            cell.movieReleaseDate = movie?.movieReleaseDate
+        case 4:
+            cell.movieOverview = movie?.movieOverview
+        default:
+            break
+        }
+        
         return cell
     }
+
 }

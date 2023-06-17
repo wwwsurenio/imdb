@@ -22,15 +22,23 @@ class MovieDetailsTableCell: UITableViewCell {
         }
     }
     
-    var movieVote: String? {
+    var movieVote: Double? {
         didSet {
-            movieVoteLabel.text = movieVote
+            if let vote = movieVote {
+                movieVoteLabel.text = String(format: "%.1f", vote)
+            } else {
+                movieVoteLabel.text = nil
+            }
         }
     }
     
-    var movieVoteCount: String? {
+    var movieVoteCount: Int? {
         didSet {
-            movieVoteCountLabel.text = movieVoteCount
+            if let voteCount = movieVoteCount {
+                movieVoteCountLabel.text = "\(voteCount) votes"
+            } else {
+                movieVoteCountLabel.text = nil
+            }
         }
     }
     
