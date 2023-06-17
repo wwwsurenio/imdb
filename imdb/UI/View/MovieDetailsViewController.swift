@@ -31,29 +31,27 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        setupUI()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.register(MovieDetailsTableCell.self, forCellReuseIdentifier: "MovieCell")
-
-        
-        movieDetailsController.delegate = self
-        movieDetailsController.get()
-    }
-    
-    private func setupUI() {
-        // Add the table view to the view hierarchy and set its constraints
-        view.addSubview(tableView)
+        // Create and configure the table view
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(MovieDetailsTableCell.self, forCellReuseIdentifier: "MovieCell")
+        tableView.separatorStyle = .none
+        
+        // Load movie details
+        movieDetailsController.delegate = self
+        movieDetailsController.get()
     }
+
 
 }
 
@@ -76,43 +74,48 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieDetailsTableCell
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         
         // Configure the cell with movie details based on the row index
         switch indexPath.row {
         case 0:
-                if let moviePosterURL = movie?.moviePosterURL {
-                    if let cachedImage = imageCache[moviePosterURL] {
-                        cell.moviePoster = cachedImage
-                    } else {
-                        cell.moviePoster = UIImage(named: "placeholderImage") // Placeholder image while loading
-                        DispatchQueue.global().async { [weak self] in
-                            if let imageData = try? Data(contentsOf: moviePosterURL) {
-                                let moviePoster = UIImage(data: imageData)
-                                self?.imageCache[moviePosterURL] = moviePoster
-                                DispatchQueue.main.async {
-                                    cell.moviePoster = moviePoster
-                                }
+            if let moviePosterURL = movie?.moviePosterURL {
+                if let cachedImage = imageCache[moviePosterURL] {
+                    cell.imageView?.image = cachedImage
+                } else {
+                    cell.imageView?.image = UIImage(named: "placeholderImage") // Placeholder image while loading
+                    DispatchQueue.global().async { [weak self] in
+                        if let imageData = try? Data(contentsOf: moviePosterURL) {
+                            let moviePoster = UIImage(data: imageData)
+                            self?.imageCache[moviePosterURL] = moviePoster
+                            DispatchQueue.main.async {
+                                cell.imageView?.image = moviePoster
+                                cell.setNeedsLayout()
                             }
                         }
                     }
-                } else {
-                    cell.moviePoster = nil
                 }
+            }
         case 1:
-            cell.movieTitle = movie?.movieTitle
+            cell.textLabel?.text = movie?.movieTitle
         case 2:
-            cell.movieVote = movie?.movieVote
-            cell.movieVoteCount = movie?.movieVoteCount
+            if let vote = movie?.movieVote, let voteCount = movie?.movieVoteCount {
+                cell.textLabel?.text = "\(vote) (\(voteCount) votes)"
+            } else {
+                cell.textLabel?.text = nil
+            }
         case 3:
-            cell.movieReleaseDate = movie?.movieReleaseDate
+            cell.textLabel?.text = movie?.movieReleaseDate
         case 4:
-            cell.movieOverview = movie?.movieOverview
+            cell.textLabel?.numberOfLines = 0 // Allow multiple lines for movie overview
+            cell.textLabel?.text = movie?.movieOverview
+            cell.textLabel?.lineBreakMode = .byWordWrapping
         default:
             break
         }
         
         return cell
     }
+
 
 }
