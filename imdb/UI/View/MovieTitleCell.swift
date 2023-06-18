@@ -18,7 +18,7 @@ class MovieTitleCell: UITableViewCell {
     
     private let movieTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 37)
         label.textAlignment = .left
         label.numberOfLines = 0
         return label

@@ -23,7 +23,7 @@ class MovieDetailsViewController: UIViewController {
     let nameLabel = UILabel()
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
-    let cellTypes: [MovieDetailsCellType] = [.moviePoster, .movieTitle]
+    let cellTypes: [MovieDetailsCellType] = [.moviePoster, .movieTitle, .movieVote]
     
     init(movieDetailsController: MovieDetailsControllerInput) {
         self.movieDetailsController = movieDetailsController
@@ -55,6 +55,7 @@ class MovieDetailsViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.register(MoviePosterCell.self, forCellReuseIdentifier: "MoviePosterCell")
         tableView.register(MovieTitleCell.self, forCellReuseIdentifier: "MovieTitleCell")
+        tableView.register(MovieRatingsCell.self, forCellReuseIdentifier: "MovieRatingsCell")
         
         // Load movie details
         movieDetailsController.delegate = self
@@ -78,7 +79,9 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cellTypes[indexPath.row]
         guard let movie = movie else { return UITableViewCell() }
+        
         switch cellType {
+            
         case .moviePoster:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePosterCell", for: indexPath) as! MoviePosterCell
             let moviePosterURL = API.imageURL.appending(path: movie.moviePosterURL.absoluteString)
@@ -86,12 +89,18 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
                 cell.movieThumb = await moviePosterURL.getImage()
             }
             return cell
+            
         case .movieTitle:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTitleCell", for: indexPath) as! MovieTitleCell
             cell.movieTitle = movie.movieTitle
             return cell
+        
         case .movieVote:
-            break
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieRatingsCell", for: indexPath) as! MovieRatingsCell
+            cell.movieVote = movie.movieVote
+            cell.movieVoteCount = movie.movieVoteCount
+            cell.moviePopularity = movie.moviePopularity
+            return cell
         case .movieReleaseDate:
             break
         case .movieOverview:

@@ -55,8 +55,11 @@ extension MovieDetailsController: MovieDetailsControllerInput {
                         moviePosterURL: movieDetailsData.poster_path,
                         movieReleaseDate: movieDetailsData.release_date,
                         movieVote: movieDetailsData.vote_average,
-                        movieVoteCount: movieDetailsData.vote_count
+                        movieVoteCount: movieDetailsData.vote_count,
+                        moviePopularity: movieDetailsData.popularity,
+                        movieLanguage: movieDetailsData.original_language
                     )
+                    
                     
                     let movieDetailsModel = movie
                     
