@@ -104,17 +104,15 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = movies[indexPath.row]
-        var selectedMovieID = movie.movieID
+        let selectedMovieID = movie.movieID
 
-        // Find the movie object based on the selected movie ID
-        guard let selectedMovie = movies.first(where: { $0.movieID == selectedMovieID }) else {
-            return
-        }
         let movieDetailsController = MovieDetailsController(movieID: selectedMovieID)
-        let movieDetailsVC = MovieDetailsViewController(movieID: selectedMovieID, movieDetailsController: movieDetailsController)
+        let movieDetailsVC = MovieDetailsViewController(movieDetailsController: movieDetailsController)
         navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
 }
+
+//MARK: - recievedData
 
 extension MovieViewController: MovieControllerDelegate {
     func recievedData(movieModels: [MovieModel]) {

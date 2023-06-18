@@ -14,6 +14,8 @@ protocol GenericAPI {
 enum API {
     static let apiURL = "https://api.themoviedb.org/3/"
     fileprivate static let apiKey = "b859aa49388105f4ed7ff53a89a40f66"
+    
+    static let imageURL = URL(string: "https://image.tmdb.org/t/p/w500")!
 }
 
 enum MoviesAPI: GenericAPI {
