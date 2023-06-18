@@ -23,7 +23,7 @@ class MovieDetailsViewController: UIViewController {
     let nameLabel = UILabel()
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
-    let cellTypes: [MovieDetailsCellType] = [.moviePoster, .movieTitle, .movieVote]
+    let cellTypes: [MovieDetailsCellType] = [.moviePoster, .movieTitle, .movieVote, .movieReleaseDate, .movieOverview]
     
     init(movieDetailsController: MovieDetailsControllerInput) {
         self.movieDetailsController = movieDetailsController
@@ -56,6 +56,8 @@ class MovieDetailsViewController: UIViewController {
         tableView.register(MoviePosterCell.self, forCellReuseIdentifier: "MoviePosterCell")
         tableView.register(MovieTitleCell.self, forCellReuseIdentifier: "MovieTitleCell")
         tableView.register(MovieRatingsCell.self, forCellReuseIdentifier: "MovieRatingsCell")
+        tableView.register(MovieReleaseDateCell.self, forCellReuseIdentifier: "MovieReleaseDateCell")
+        tableView.register(MovieOverviewCell.self, forCellReuseIdentifier: "MovieOverviewCell")
         
         // Load movie details
         movieDetailsController.delegate = self
@@ -101,10 +103,17 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             cell.movieVoteCount = movie.movieVoteCount
             cell.moviePopularity = movie.moviePopularity
             return cell
+            
         case .movieReleaseDate:
-            break
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieReleaseDateCell", for: indexPath) as! MovieReleaseDateCell
+            cell.movieReleaseDate = movie.movieReleaseDate
+            cell.movieLanguage = movie.movieLanguage
+            return cell
+            
         case .movieOverview:
-            break
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieOverviewCell", for: indexPath) as! MovieOverviewCell
+            cell.movieOverview = movie.movieOverview
+            return cell
         }
         fatalError()
         
