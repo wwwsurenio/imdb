@@ -23,7 +23,7 @@ class MovieDetailsViewController: UIViewController {
     let nameLabel = UILabel()
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
-    let cellTypes: [MovieDetailsCellType] = [.moviePoster]
+    let cellTypes: [MovieDetailsCellType] = [.moviePoster, .movieTitle]
     
     init(movieDetailsController: MovieDetailsControllerInput) {
         self.movieDetailsController = movieDetailsController
@@ -54,6 +54,7 @@ class MovieDetailsViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.register(MoviePosterCell.self, forCellReuseIdentifier: "MoviePosterCell")
+        tableView.register(MovieTitleCell.self, forCellReuseIdentifier: "MovieTitleCell")
         
         // Load movie details
         movieDetailsController.delegate = self
@@ -86,7 +87,9 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             }
             return cell
         case .movieTitle:
-            break
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTitleCell", for: indexPath) as! MovieTitleCell
+            cell.movieTitle = movie.movieTitle
+            return cell
         case .movieVote:
             break
         case .movieReleaseDate:
@@ -95,52 +98,29 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             break
         }
         fatalError()
-        // Configure the cell with movie details based on the row index
-//        switch indexPath.row {
-//        case 0:
-//            if let posterURL = movie?.moviePosterURL {
-//                let imageURLString = "https://image.tmdb.org/t/p/w500" + "\(posterURL)"
-//
-//                if let imageURL = URL(string: imageURLString) {
-//                    // Download the image asynchronously
-//                    DispatchQueue.global().async {
-//                        if let imageData = try? Data(contentsOf: imageURL),
-//                           let image = UIImage(data: imageData) {
-//                            DispatchQueue.main.async {
-//                                // Set the downloaded image to the cell's image view
-//                                cell.imageView?.image = image
-//                                cell.setNeedsLayout() // Trigger cell layout update
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            cell.imageView?.contentMode = .scaleAspectFill
-//            cell.imageView?.clipsToBounds = true
-//            cell.imageView?.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.frame.height * 0.75)
-//
-//        case 1:
-//            cell.textLabel?.text = movie?.movieTitle
-//            cell.textLabel?.numberOfLines = 0
-//            cell.textLabel?.lineBreakMode = .byWordWrapping
-//            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-//
-//        case 2:
-//            if let vote = movie?.movieVote, let voteCount = movie?.movieVoteCount {
-//                cell.textLabel?.text = "\(vote) (\(voteCount) votes)"
-//            } else {
-//                cell.textLabel?.text = nil
-//            }
-//        case 3:
-//            cell.textLabel?.text = movie?.movieReleaseDate
-//        case 4:
-//            cell.textLabel?.numberOfLines = 0
-//            cell.textLabel?.text = movie?.movieOverview
-//            cell.textLabel?.lineBreakMode = .byWordWrapping
-//        default:
-//            break
-//        }
-//
-//        return cell
+        
+        //        case 1:
+        //            cell.textLabel?.text = movie?.movieTitle
+        //            cell.textLabel?.numberOfLines = 0
+        //            cell.textLabel?.lineBreakMode = .byWordWrapping
+        //            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        //
+        //        case 2:
+        //            if let vote = movie?.movieVote, let voteCount = movie?.movieVoteCount {
+        //                cell.textLabel?.text = "\(vote) (\(voteCount) votes)"
+        //            } else {
+        //                cell.textLabel?.text = nil
+        //            }
+        //        case 3:
+        //            cell.textLabel?.text = movie?.movieReleaseDate
+        //        case 4:
+        //            cell.textLabel?.numberOfLines = 0
+        //            cell.textLabel?.text = movie?.movieOverview
+        //            cell.textLabel?.lineBreakMode = .byWordWrapping
+        //        default:
+        //            break
+        //        }
+        //
+        //        return cell
     }
 }
