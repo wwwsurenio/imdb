@@ -116,29 +116,5 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             return cell
         }
         fatalError()
-        
-        //        case 1:
-        //            cell.textLabel?.text = movie?.movieTitle
-        //            cell.textLabel?.numberOfLines = 0
-        //            cell.textLabel?.lineBreakMode = .byWordWrapping
-        //            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        //
-        //        case 2:
-        //            if let vote = movie?.movieVote, let voteCount = movie?.movieVoteCount {
-        //                cell.textLabel?.text = "\(vote) (\(voteCount) votes)"
-        //            } else {
-        //                cell.textLabel?.text = nil
-        //            }
-        //        case 3:
-        //            cell.textLabel?.text = movie?.movieReleaseDate
-        //        case 4:
-        //            cell.textLabel?.numberOfLines = 0
-        //            cell.textLabel?.text = movie?.movieOverview
-        //            cell.textLabel?.lineBreakMode = .byWordWrapping
-        //        default:
-        //            break
-        //        }
-        //
-        //        return cell
     }
 }
