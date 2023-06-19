@@ -8,16 +8,28 @@
 import Foundation
 import UIKit
 
+enum MovieDetailsCellType: CaseIterable {
+    case moviePoster
+    case movieTitle
+    case movieVote
+    case movieReleaseDate
+    case movieOverview
+}
+
 class MovieDetailsViewController: UIViewController {
-    private let movie: MovieModel
-    private let titleLabel: UILabel = UILabel()
-    private let movieIDLabel: UILabel = UILabel()
+    let movieDetailsController: MovieDetailsControllerInput
+    var movie: MovieDetailsModel?
     
-    init(movie: MovieModel) {
-        self.movie = movie
+    let nameLabel = UILabel()
+    let tableView: UITableView = UITableView(frame: .zero, style: .plain)
+    
+    let cellTypes: [MovieDetailsCellType] = [.moviePoster, .movieTitle, .movieVote, .movieReleaseDate, .movieOverview]
+    
+    init(movieDetailsController: MovieDetailsControllerInput) {
+        self.movieDetailsController = movieDetailsController
+        
         super.init(nibName: nil, bundle: nil)
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -27,24 +39,106 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        titleLabel.text = "MovieDetails Screen"
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleLabel)
-        
-        movieIDLabel.text = "Movie ID: \(movie.movieID)"
-        movieIDLabel.textAlignment = .center
-        movieIDLabel.font = UIFont.systemFont(ofSize: 18)
-        movieIDLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(movieIDLabel)
+        // Create and configure the table view
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-            movieIDLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            movieIDLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20)
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.register(MoviePosterCell.self, forCellReuseIdentifier: "MoviePosterCell")
+        tableView.register(MovieTitleCell.self, forCellReuseIdentifier: "MovieTitleCell")
+        tableView.register(MovieRatingsCell.self, forCellReuseIdentifier: "MovieRatingsCell")
+        tableView.register(MovieReleaseDateCell.self, forCellReuseIdentifier: "MovieReleaseDateCell")
+        tableView.register(MovieOverviewCell.self, forCellReuseIdentifier: "MovieOverviewCell")
+        
+        // Load movie details
+        movieDetailsController.delegate = self
+        movieDetailsController.get()
+    }
+}
+
+extension MovieDetailsViewController: MovieDetailsControllerDelegate {
+    func receivedData(movieDetailsModel: MovieDetailsModel) {
+        movie = movieDetailsModel
+        tableView.reloadData()
+    }
+}
+
+//MARK: - TableViewDelegate
+extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cellTypes.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellType = cellTypes[indexPath.row]
+        guard let movie = movie else { return UITableViewCell() }
+        
+        switch cellType {
+            
+        case .moviePoster:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePosterCell", for: indexPath) as! MoviePosterCell
+            let moviePosterURL = API.imageURL.appending(path: movie.moviePosterURL.absoluteString)
+            Task {
+                cell.movieThumb = await moviePosterURL.getImage()
+            }
+            return cell
+            
+        case .movieTitle:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTitleCell", for: indexPath) as! MovieTitleCell
+            cell.movieTitle = movie.movieTitle
+            return cell
+        
+        case .movieVote:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieRatingsCell", for: indexPath) as! MovieRatingsCell
+            cell.movieVote = movie.movieVote
+            cell.movieVoteCount = movie.movieVoteCount
+            cell.moviePopularity = movie.moviePopularity
+            return cell
+            
+        case .movieReleaseDate:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieReleaseDateCell", for: indexPath) as! MovieReleaseDateCell
+            cell.movieReleaseDate = movie.movieReleaseDate
+            cell.movieLanguage = movie.movieLanguage
+            return cell
+            
+        case .movieOverview:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieOverviewCell", for: indexPath) as! MovieOverviewCell
+            cell.movieOverview = movie.movieOverview
+            return cell
+        }
+        fatalError()
+        
+        //        case 1:
+        //            cell.textLabel?.text = movie?.movieTitle
+        //            cell.textLabel?.numberOfLines = 0
+        //            cell.textLabel?.lineBreakMode = .byWordWrapping
+        //            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        //
+        //        case 2:
+        //            if let vote = movie?.movieVote, let voteCount = movie?.movieVoteCount {
+        //                cell.textLabel?.text = "\(vote) (\(voteCount) votes)"
+        //            } else {
+        //                cell.textLabel?.text = nil
+        //            }
+        //        case 3:
+        //            cell.textLabel?.text = movie?.movieReleaseDate
+        //        case 4:
+        //            cell.textLabel?.numberOfLines = 0
+        //            cell.textLabel?.text = movie?.movieOverview
+        //            cell.textLabel?.lineBreakMode = .byWordWrapping
+        //        default:
+        //            break
+        //        }
+        //
+        //        return cell
+    }
 }

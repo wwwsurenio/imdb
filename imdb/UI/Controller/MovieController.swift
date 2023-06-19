@@ -19,11 +19,7 @@ protocol MovieControllerDelegate: AnyObject {
 
 
 class MovieController {
-    
     weak var delegate: MovieControllerDelegate?
-    //why making movieModels a static var does not work in our case?
-    let apiURL = "https://api.themoviedb.org/3/movie/popular"
-    let apiKey = "b859aa49388105f4ed7ff53a89a40f66"
 }
 
 // MARK: - MovieControllerInput
@@ -31,20 +27,10 @@ extension MovieController: MovieControllerInput {
 
     func get() {
         let session = URLSession(configuration: .default)
-        guard let url = URL(string: apiURL) else {
-            assertionFailure("Invalid API URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.url?.append(queryItems: [
-            URLQueryItem(name: "api_key", value: apiKey)
-        ])
         
         //The closure has three inputs: data, response, and error.
         //These hold the information we get back from the server.
-        let task = session.dataTask(with: request) { [weak self] (data, response, error) in
+        let task = session.dataTask(withAPI: MoviesAPI.popularList) { [weak self] (data, response, error) in
             guard let self = self else { return }
             
             if let error = error {
@@ -60,14 +46,6 @@ extension MovieController: MovieControllerInput {
             do {
                 let movieModels = try self.parseJSON(jsonData: data)
                 
-                // Print the parsed movie data
-                for item in movieModels {
-                    print("Movie Title: \(item.movieTitle)")
-                    print("Movie Description: \(item.movieDescription)")
-                    print("Movie Rating: \(item.movieRating)")
-                    print("-----")
-                }
-                
                 // Use the parsed movieModels array
                 DispatchQueue.main.async {
                     self.delegate?.recievedData(movieModels: movieModels)
@@ -77,6 +55,7 @@ extension MovieController: MovieControllerInput {
             }
         }
         
+        print("Start loading data for list")
         task.resume()
         
     }

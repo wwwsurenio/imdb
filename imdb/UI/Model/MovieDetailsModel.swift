@@ -14,4 +14,6 @@ struct MovieDetailsModel {
     let movieReleaseDate: String
     let movieVote: Double
     let movieVoteCount: Int
+    let moviePopularity: Double
+    let movieLanguage: String
 }
