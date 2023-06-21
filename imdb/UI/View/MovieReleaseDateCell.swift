@@ -71,23 +71,25 @@ class MovieReleaseDateCell: UITableViewCell {
         
         movieReleaseDateHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         movieReleaseDateHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        movieReleaseDateHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        movieReleaseDateHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32).isActive = true
         
         movieReleaseDateLabel.translatesAutoresizingMaskIntoConstraints = false
         movieReleaseDateLabel.topAnchor.constraint(equalTo: movieReleaseDateHeaderLabel.bottomAnchor, constant: 4).isActive = true
-        movieReleaseDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        movieReleaseDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32).isActive = true
         
         movieLanguageHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         movieLanguageHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        movieLanguageHeaderLabel.leadingAnchor.constraint(equalTo: movieReleaseDateLabel.trailingAnchor, constant: 20).isActive = true
-        movieLanguageHeaderLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10).isActive = true
-
+        movieLanguageHeaderLabel.leadingAnchor.constraint(equalTo: movieReleaseDateLabel.trailingAnchor, constant: 32).isActive = true
+        
         movieLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         movieLanguageLabel.topAnchor.constraint(equalTo: movieLanguageHeaderLabel.bottomAnchor, constant: 4).isActive = true
         movieLanguageLabel.leadingAnchor.constraint(equalTo: movieLanguageHeaderLabel.leadingAnchor).isActive = true
-        movieLanguageLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10).isActive = true
-
+        movieLanguageLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -32).isActive = true
+        movieLanguageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
     }
+
+
+
     
 
     
