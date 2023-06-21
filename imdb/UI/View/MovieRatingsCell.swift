@@ -58,12 +58,25 @@ class MovieRatingsCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 10
+        stackView.spacing = 8
         return stackView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        let movieVoteBox = createBox()
+        movieVoteBox.addSubview(movieVoteLabel)
+        
+        let movieVoteCountBox = createBox()
+        movieVoteCountBox.addSubview(movieVoteCountLabel)
+        
+        let moviePopularityBox = createBox()
+        moviePopularityBox.addSubview(moviePopularityLabel)
+        
+        labelsStackView.addArrangedSubview(movieVoteBox)
+        labelsStackView.addArrangedSubview(movieVoteCountBox)
+        labelsStackView.addArrangedSubview(moviePopularityBox)
         
         contentView.addSubview(labelsStackView)
         
@@ -72,12 +85,32 @@ class MovieRatingsCell: UITableViewCell {
         labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+//        labelsStackView.heightAnchor.constraint(equalToConstant: 88).isActive = true
         
-        labelsStackView.addArrangedSubview(movieVoteLabel)
-        labelsStackView.addArrangedSubview(movieVoteCountLabel)
-        labelsStackView.addArrangedSubview(moviePopularityLabel)
+        movieVoteLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieVoteLabel.centerXAnchor.constraint(equalTo: movieVoteBox.centerXAnchor).isActive = true
+        movieVoteLabel.centerYAnchor.constraint(equalTo: movieVoteBox.centerYAnchor).isActive = true
+        
+        movieVoteCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieVoteCountLabel.centerXAnchor.constraint(equalTo: movieVoteCountBox.centerXAnchor).isActive = true
+        movieVoteCountLabel.centerYAnchor.constraint(equalTo: movieVoteCountBox.centerYAnchor).isActive = true
+        
+        moviePopularityLabel.translatesAutoresizingMaskIntoConstraints = false
+        moviePopularityLabel.centerXAnchor.constraint(equalTo: moviePopularityBox.centerXAnchor).isActive = true
+        moviePopularityLabel.centerYAnchor.constraint(equalTo: moviePopularityBox.centerYAnchor).isActive = true
     }
-    
+
+    private func createBox() -> UIView {
+        let box = UIView()
+        box.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
+        box.layer.cornerRadius = 24
+        box.clipsToBounds = true
+        box.translatesAutoresizingMaskIntoConstraints = false
+        box.heightAnchor.constraint(equalToConstant: 88).isActive = true
+        return box
+    }
+
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
