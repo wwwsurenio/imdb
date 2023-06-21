@@ -72,6 +72,7 @@ extension MovieDetailsViewController: MovieDetailsControllerDelegate {
     }
 }
 
+
 //MARK: - TableViewDelegate
 extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,6 +91,7 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             Task {
                 cell.movieThumb = await moviePosterURL.getImage()
             }
+            
             return cell
             
         case .movieTitle:
@@ -116,5 +118,7 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             return cell
         }
         fatalError()
+        
+
     }
 }
