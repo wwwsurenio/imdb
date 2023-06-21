@@ -25,14 +25,30 @@ class MovieReleaseDateCell: UITableViewCell {
     
     private let movieReleaseDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .left
         return label
     }()
     
     private let movieLanguageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private let movieReleaseDateHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Release date"
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private let movieLanguageHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Language"
+        label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .left
         return label
     }()
@@ -48,18 +64,32 @@ class MovieReleaseDateCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(labelsStackView)
+        contentView.addSubview(movieReleaseDateHeaderLabel)
+        contentView.addSubview(movieReleaseDateLabel)
+        contentView.addSubview(movieLanguageHeaderLabel)
+        contentView.addSubview(movieLanguageLabel)
         
-        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
-        labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        movieReleaseDateHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieReleaseDateHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        movieReleaseDateHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         
-        labelsStackView.addArrangedSubview(movieReleaseDateLabel)
-        labelsStackView.addArrangedSubview(movieLanguageLabel)
+        movieReleaseDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieReleaseDateLabel.topAnchor.constraint(equalTo: movieReleaseDateHeaderLabel.bottomAnchor, constant: 4).isActive = true
+        movieReleaseDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         
+        movieLanguageHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieLanguageHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        movieLanguageHeaderLabel.leadingAnchor.constraint(equalTo: movieReleaseDateLabel.trailingAnchor, constant: 20).isActive = true
+        movieLanguageHeaderLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10).isActive = true
+
+        movieLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieLanguageLabel.topAnchor.constraint(equalTo: movieLanguageHeaderLabel.bottomAnchor, constant: 4).isActive = true
+        movieLanguageLabel.leadingAnchor.constraint(equalTo: movieLanguageHeaderLabel.leadingAnchor).isActive = true
+        movieLanguageLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10).isActive = true
+
     }
+    
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

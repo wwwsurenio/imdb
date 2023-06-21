@@ -36,21 +36,18 @@ class MovieRatingsCell: UITableViewCell {
     private let movieVoteLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .center
         return label
     }()
 
     private let movieVoteCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .center
         return label
     }()
 
     private let moviePopularityLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .center
         return label
     }()
 
@@ -117,6 +114,7 @@ class MovieRatingsCell: UITableViewCell {
         moviePopularityCountLabel.translatesAutoresizingMaskIntoConstraints = false
         moviePopularityCountLabel.topAnchor.constraint(equalTo: moviePopularityLabel.bottomAnchor, constant: 5).isActive = true
         moviePopularityCountLabel.centerXAnchor.constraint(equalTo: moviePopularityBox.centerXAnchor).isActive = true
+        
     }
     
     private func createBox() -> UIView {

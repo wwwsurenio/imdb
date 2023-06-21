@@ -33,10 +33,10 @@ class MovieOverviewCell: UITableViewCell {
                                left: contentView.leftAnchor,
                                bottom: contentView.bottomAnchor,
                                right: contentView.rightAnchor,
-                               paddingTop: 8,
-                               paddingLeft: 8,
-                               paddingBottom: 8,
-                               paddingRight: 8,
+                               paddingTop: 16,
+                               paddingLeft: 32,
+                               paddingBottom: 16,
+                               paddingRight: 32,
                                width: 0,
                                height: 0)
     }
