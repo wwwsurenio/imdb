@@ -24,7 +24,7 @@ class MovieReleaseDateCell: UITableViewCell {
     
     private let movieReleaseDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textAlignment = .left
         return label
     }()
