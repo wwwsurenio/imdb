@@ -52,6 +52,7 @@ class MovieDetailsViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.register(MoviePosterCell.self, forCellReuseIdentifier: "MoviePosterCell")
         tableView.register(MovieTitleCell.self, forCellReuseIdentifier: "MovieTitleCell")
@@ -120,5 +121,9 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
         fatalError()
         
 
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }

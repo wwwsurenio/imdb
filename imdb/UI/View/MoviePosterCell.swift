@@ -11,8 +11,12 @@ class MoviePosterCell: UITableViewCell {
     
     var movieThumb: UIImage? {
         didSet {
-            movieThumbImageView.image = movieThumb
-            setNeedsLayout()
+            movieBlurImageView.image = movieThumb?
+                .addBlurredImageUnderneath(posterSize: .init(
+                width: UIScreen.main.bounds.width - 2 * .leadingOffset,
+                height: .posterHeight))?
+            .curvedImageWithRadius(radius: 32)
+            movieThumbImageView.image = movieThumb?.curvedImageWithRadius(radius: 32)
         }
     }
     
@@ -20,6 +24,15 @@ class MoviePosterCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    private let movieBlurImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.setNeedsLayout()
         return imageView
     }()
     
@@ -32,24 +45,41 @@ class MoviePosterCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        
+        contentView.addSubview(movieBlurImageView)
         contentView.addSubview(movieThumbImageView)
-        contentView.addSubview(blurView)
+//        contentView.addSubview(blurView)
+        
+        movieBlurImageView.anchor(top: contentView.topAnchor,
+                                   left: contentView.leftAnchor,
+                                   bottom: contentView.bottomAnchor,
+                                   right: contentView.rightAnchor,
+                                   paddingTop: 8,
+                                   paddingLeft: .leadingOffset,
+                                   paddingBottom: 0,
+                                   paddingRight: .leadingOffset,
+                                   height: .posterHeight)
         
         movieThumbImageView.anchor(top: contentView.topAnchor,
                                    left: contentView.leftAnchor,
                                    bottom: contentView.bottomAnchor,
                                    right: contentView.rightAnchor,
-                                   paddingTop: 8,
-                                   paddingLeft: 8,
-                                   paddingBottom: 8,
-                                   paddingRight: 8,
-                                   height: 395.6)
+                                   paddingTop: 40,
+                                   paddingLeft: .leadingOffset,
+                                   paddingBottom: 0,
+                                   paddingRight: .leadingOffset,
+                                   height: .posterHeight)
         
-        blurView.frame = movieThumbImageView.bounds
+//        blurView.frame = movieThumbImageView.bounds
         movieThumbImageView.addSubview(blurView)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension CGFloat {
+    static let posterHeight: CGFloat = 408
+    static let leadingOffset: CGFloat = 8
 }

@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 
 class MovieReleaseDateCell: UITableViewCell {
-    
     var movieReleaseDate: String? {
         didSet {
             if let releaseDate = movieReleaseDate {
@@ -32,7 +31,7 @@ class MovieReleaseDateCell: UITableViewCell {
     
     private let movieLanguageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textAlignment = .left
         return label
     }()
@@ -57,7 +56,7 @@ class MovieReleaseDateCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 10
+        stackView.spacing = 8
         return stackView
     }()
     
@@ -70,7 +69,7 @@ class MovieReleaseDateCell: UITableViewCell {
         contentView.addSubview(movieLanguageLabel)
         
         movieReleaseDateHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieReleaseDateHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        movieReleaseDateHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24).isActive = true
         movieReleaseDateHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32).isActive = true
         
         movieReleaseDateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -78,20 +77,15 @@ class MovieReleaseDateCell: UITableViewCell {
         movieReleaseDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32).isActive = true
         
         movieLanguageHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieLanguageHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        movieLanguageHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24).isActive = true
         movieLanguageHeaderLabel.leadingAnchor.constraint(equalTo: movieReleaseDateLabel.trailingAnchor, constant: 32).isActive = true
         
         movieLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         movieLanguageLabel.topAnchor.constraint(equalTo: movieLanguageHeaderLabel.bottomAnchor, constant: 4).isActive = true
         movieLanguageLabel.leadingAnchor.constraint(equalTo: movieLanguageHeaderLabel.leadingAnchor).isActive = true
         movieLanguageLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -32).isActive = true
-        movieLanguageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        movieLanguageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
     }
-
-
-
-    
-
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

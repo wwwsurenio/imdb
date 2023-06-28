@@ -60,8 +60,11 @@ class MovieRatingsCell: UITableViewCell {
         return stackView
     }()
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        selectionStyle = .none
         
         let movieVoteBox = createBox()
         movieVoteBox.addSubview(movieVoteLabel)
@@ -85,15 +88,15 @@ class MovieRatingsCell: UITableViewCell {
         contentView.addSubview(labelsStackView)
         
         labelsStackView.translatesAutoresizingMaskIntoConstraints = false
-        labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .standartOffset).isActive = true
+        labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .standartOffset).isActive = true
+        labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.standartOffset).isActive = true
+        labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -.standartOffset).isActive = true
         labelsStackView.heightAnchor.constraint(equalToConstant: 88).isActive = true
         
         movieVoteLabel.translatesAutoresizingMaskIntoConstraints = false
         movieVoteLabel.centerXAnchor.constraint(equalTo: movieVoteBox.centerXAnchor).isActive = true
-        movieVoteLabel.centerYAnchor.constraint(equalTo: movieVoteBox.centerYAnchor, constant: -10).isActive = true
+        movieVoteLabel.centerYAnchor.constraint(equalTo: movieVoteBox.centerYAnchor, constant: -8).isActive = true
         
         movieVoteRatingLabel.translatesAutoresizingMaskIntoConstraints = false
         movieVoteRatingLabel.topAnchor.constraint(equalTo: movieVoteLabel.bottomAnchor, constant: 5).isActive = true
@@ -101,7 +104,7 @@ class MovieRatingsCell: UITableViewCell {
         
         movieVoteCountLabel.translatesAutoresizingMaskIntoConstraints = false
         movieVoteCountLabel.centerXAnchor.constraint(equalTo: movieVoteCountBox.centerXAnchor).isActive = true
-        movieVoteCountLabel.centerYAnchor.constraint(equalTo: movieVoteCountBox.centerYAnchor, constant: -10).isActive = true
+        movieVoteCountLabel.centerYAnchor.constraint(equalTo: movieVoteCountBox.centerYAnchor, constant: -8).isActive = true
         
         movieVoteCountVoteLabel.translatesAutoresizingMaskIntoConstraints = false
         movieVoteCountVoteLabel.topAnchor.constraint(equalTo: movieVoteCountLabel.bottomAnchor, constant: 5).isActive = true
@@ -109,7 +112,7 @@ class MovieRatingsCell: UITableViewCell {
         
         moviePopularityLabel.translatesAutoresizingMaskIntoConstraints = false
         moviePopularityLabel.centerXAnchor.constraint(equalTo: moviePopularityBox.centerXAnchor).isActive = true
-        moviePopularityLabel.centerYAnchor.constraint(equalTo: moviePopularityBox.centerYAnchor, constant: -10).isActive = true
+        moviePopularityLabel.centerYAnchor.constraint(equalTo: moviePopularityBox.centerYAnchor, constant: -8).isActive = true
         
         moviePopularityCountLabel.translatesAutoresizingMaskIntoConstraints = false
         moviePopularityCountLabel.topAnchor.constraint(equalTo: moviePopularityLabel.bottomAnchor, constant: 5).isActive = true
@@ -139,4 +142,8 @@ class MovieRatingsCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension CGFloat {
+    static let standartOffset: CGFloat = 8
 }
