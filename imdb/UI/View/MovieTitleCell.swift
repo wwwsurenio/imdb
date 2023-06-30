@@ -18,7 +18,7 @@ class MovieTitleCell: UITableViewCell {
     
     private let movieTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 37)
+        label.font = UIFont.systemFont(ofSize: 37, weight: .semibold)
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -27,16 +27,18 @@ class MovieTitleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        contentView.layer.cornerRadius = 32
+        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         contentView.addSubview(movieTitleLabel)
         
         movieTitleLabel.anchor(top: contentView.topAnchor,
                                left: contentView.leftAnchor,
                                bottom: contentView.bottomAnchor,
                                right: contentView.rightAnchor,
-                               paddingTop: 8,
-                               paddingLeft: 8,
-                               paddingBottom: 8,
-                               paddingRight: 8,
+                               paddingTop: 32,
+                               paddingLeft: 32,
+                               paddingBottom: 16,
+                               paddingRight: 32,
                                width: 0,
                                height: 0)
     }

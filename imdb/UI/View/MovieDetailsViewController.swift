@@ -47,11 +47,12 @@ class MovieDetailsViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.register(MoviePosterCell.self, forCellReuseIdentifier: "MoviePosterCell")
         tableView.register(MovieTitleCell.self, forCellReuseIdentifier: "MovieTitleCell")
@@ -72,6 +73,7 @@ extension MovieDetailsViewController: MovieDetailsControllerDelegate {
     }
 }
 
+
 //MARK: - TableViewDelegate
 extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,6 +92,7 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             Task {
                 cell.movieThumb = await moviePosterURL.getImage()
             }
+            
             return cell
             
         case .movieTitle:
@@ -117,28 +120,10 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
         }
         fatalError()
         
-        //        case 1:
-        //            cell.textLabel?.text = movie?.movieTitle
-        //            cell.textLabel?.numberOfLines = 0
-        //            cell.textLabel?.lineBreakMode = .byWordWrapping
-        //            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        //
-        //        case 2:
-        //            if let vote = movie?.movieVote, let voteCount = movie?.movieVoteCount {
-        //                cell.textLabel?.text = "\(vote) (\(voteCount) votes)"
-        //            } else {
-        //                cell.textLabel?.text = nil
-        //            }
-        //        case 3:
-        //            cell.textLabel?.text = movie?.movieReleaseDate
-        //        case 4:
-        //            cell.textLabel?.numberOfLines = 0
-        //            cell.textLabel?.text = movie?.movieOverview
-        //            cell.textLabel?.lineBreakMode = .byWordWrapping
-        //        default:
-        //            break
-        //        }
-        //
-        //        return cell
+
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
