@@ -12,7 +12,6 @@ class MovieViewController: UIViewController {
     let movieController: MovieControllerInput
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     
-    
     var imageCache = [URL: UIImage]()
     
     init(movieController: MovieControllerInput) {
@@ -25,36 +24,37 @@ class MovieViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        movieController.get()
-        movieController.delegate = self
-        
-        view.backgroundColor = .white
-       
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(MovieTableCell.self, forCellReuseIdentifier: "cellId")
-        
-        // Embed the MovieViewController in a UINavigationController
-        let navigationController = UINavigationController(rootViewController: self)
-        navigationController.navigationBar.prefersLargeTitles = true
-        
-        // Hide the navigation bar's large title view
-        navigationController.navigationBar.prefersLargeTitles = false
-        
-        // Set the rootViewController of the window to the UINavigationController
-        let window = UIApplication.shared.windows.first
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
-    }
+            super.viewDidLoad()
+            movieController.get()
+            movieController.delegate = self
+            
+            view.backgroundColor = .white
+            
+            view.addSubview(tableView)
+            tableView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.register(MovieTableCell.self, forCellReuseIdentifier: "cellId")
+            
+            // Embed the MovieViewController in a UINavigationController
+            let navigationController = UINavigationController(rootViewController: self)
+            navigationController.navigationBar.prefersLargeTitles = true
+            
+            // Create tab bar controller
+            let mainTabBarController = MainTabBarController()
+            mainTabBarController.viewControllers = [navigationController]
+            
+            // Set the rootViewController of the window to the MainTabBarController
+            let window = UIApplication.shared.windows.first
+            window?.rootViewController = mainTabBarController
+            window?.makeKeyAndVisible()
+        }
     
     func blah() {
         // do something

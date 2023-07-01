@@ -10,21 +10,17 @@ import UIKit
 class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let profileVC = ProfileVC()
-        let favoriteVC = FavoriteVC()
+        
+        let profileVC = ProfileViewController()
+        let favoriteVC = FavoritesViewController()
+        
+        let profileImage = UIImage(systemName: "person.crop.circle")
+        let favoriteImage = UIImage(systemName: "safari")
+        
+        profileVC.tabBarItem = UITabBarItem(title: "Profile", image: profileImage, tag: 0)
+        favoriteVC.tabBarItem = UITabBarItem(title: "Favorites", image: favoriteImage, tag: 1)
         
         self.setViewControllers([profileVC, favoriteVC], animated: false)
-    }
-}
-
-class ProfileVC: UIViewController{
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-}
-
-class FavoriteVC: UIViewController{
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        self.tabBar.isHidden = false
     }
 }
