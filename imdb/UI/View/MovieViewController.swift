@@ -8,9 +8,11 @@
 import UIKit
 
 class MovieViewController: UIViewController {
+    
     var movies: [MovieModel] = []
     let movieController: MovieControllerInput
     let tableView: UITableView = UITableView(frame: .zero, style: .plain)
+    let mainTabBarController = MainTabBarController()
     
     var imageCache = [URL: UIImage]()
     
@@ -18,43 +20,46 @@ class MovieViewController: UIViewController {
         self.movieController = movieController
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
-            super.viewDidLoad()
-            movieController.get()
-            movieController.delegate = self
-            
-            view.backgroundColor = .white
-            
-            view.addSubview(tableView)
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.register(MovieTableCell.self, forCellReuseIdentifier: "cellId")
-            
-            // Embed the MovieViewController in a UINavigationController
-            let navigationController = UINavigationController(rootViewController: self)
-            navigationController.navigationBar.prefersLargeTitles = true
-            
-            // Create tab bar controller
-            let mainTabBarController = MainTabBarController()
-            mainTabBarController.viewControllers = [navigationController]
-            
-            // Set the rootViewController of the window to the MainTabBarController
-            let window = UIApplication.shared.windows.first
-            window?.rootViewController = mainTabBarController
-            window?.makeKeyAndVisible()
-        }
+        super.viewDidLoad()
+        movieController.get()
+        movieController.delegate = self
+        
+        view.backgroundColor = .white
+        
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(MovieTableCell.self, forCellReuseIdentifier: "cellId")
+        
+        tabBarController?.viewControllers = [self, mainTabBarController]
+        tabBarController?.tabBar.isHidden = false
+        
+        // Embed the MovieViewController in a UINavigationController
+        let navigationController = UINavigationController(rootViewController: self)
+        navigationController.navigationBar.prefersLargeTitles = true
+        
+        // Set the rootViewController of the window to the MainTabBarController
+        let window = UIApplication.shared.windows.first
+        window?.rootViewController = mainTabBarController
+        window?.makeKeyAndVisible()
+        
+
+        
+        
+    }
     
     func blah() {
         // do something
@@ -105,7 +110,7 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = movies[indexPath.row]
         let selectedMovieID = movie.movieID
-
+        
         let movieDetailsController = MovieDetailsController(movieID: selectedMovieID)
         let movieDetailsVC = MovieDetailsViewController(movieDetailsController: movieDetailsController)
         navigationController?.pushViewController(movieDetailsVC, animated: true)
