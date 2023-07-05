@@ -8,20 +8,32 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+    
+    let profileImage = UIImage(systemName: "person.crop.circle")
+    let navigationImage = UIImage(systemName: "safari")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navigationVC = FavoritesViewController()
-        let profileVC = ProfileViewController()
+        // Create the MovieViewController
+        let movieControllerInput = MovieController()
+        let movieViewController = MovieViewController(movieController: movieControllerInput)
+        let movieNavigationController = UINavigationController(rootViewController: movieViewController)
+        movieNavigationController.tabBarItem = UITabBarItem(title: nil, image: navigationImage, tag: 0)
         
         
-        let profileImage = UIImage(systemName: "person.crop.circle")
-        let navigationImage = UIImage(systemName: "safari")
+        // Create the ProfileViewController
+        let profileViewController = ProfileViewController()
+        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(title: nil, image: profileImage, tag: 1)
+        profileNavigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         
-        profileVC.tabBarItem = UITabBarItem(title: "Profile", image: profileImage, tag: 0)
-        navigationVC.tabBarItem = UITabBarItem(title: "Favorites", image: navigationImage, tag: 1)
+        // Set the view controllers of the tab bar controller
+        self.viewControllers = [movieNavigationController, profileNavigationController]
         
-        setViewControllers([navigationVC, profileVC], animated: false)
+        // Set the background color of the tab bar to white
+        tabBar.barTintColor = .white
+        
     }
 }
 

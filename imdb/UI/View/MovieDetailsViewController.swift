@@ -29,7 +29,7 @@ class MovieDetailsViewController: UIViewController {
         self.movieDetailsController = movieDetailsController
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -38,6 +38,19 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        // Set the title of the navigation bar
+        let titleLabel = UILabel()
+        titleLabel.text = "Movie"
+        titleLabel.textAlignment = .center
+        titleLabel.sizeToFit()
+        navigationItem.titleView = titleLabel
+        
+        // Customize the back button appearance
+        navigationItem.title = "" // Remove the title of the view controller
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "chevron.left")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "chevron.left")
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         
         // Create and configure the table view
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +112,7 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTitleCell", for: indexPath) as! MovieTitleCell
             cell.movieTitle = movie.movieTitle
             return cell
-        
+            
         case .movieVote:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieRatingsCell", for: indexPath) as! MovieRatingsCell
             cell.movieVote = movie.movieVote
@@ -120,7 +133,7 @@ extension MovieDetailsViewController: UITableViewDelegate, UITableViewDataSource
         }
         fatalError()
         
-
+        
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
