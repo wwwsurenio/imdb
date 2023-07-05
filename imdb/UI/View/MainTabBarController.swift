@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navigationVC = MovieViewController()
+        let navigationVC = FavoritesViewController()
         let profileVC = ProfileViewController()
         
         
