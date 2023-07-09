@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
         titleLabel.textColor = .black
         titleLabel.numberOfLines = 0
         titleLabel.adjustsFontSizeToFitWidth = true
-
+        
         view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -31,77 +31,172 @@ class ProfileViewController: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-
-
         
-        let imageView = UIImageView(frame: CGRect(x: 50, y: 150, width: 200, height: 200))
+        let imageView = UIImageView()
         // Set the image for the UIImageView
-        imageView.image = UIImage(named: "test.png")
+        imageView.image = UIImage(named: "image.png")
+        
+        view.addSubview(titleLabel)
         view.addSubview(imageView)
         
-        let line1Label = UILabel(frame: CGRect(x: 0, y: 400, width: view.frame.width, height: 30))
-        line1Label.textAlignment = .left
-        line1Label.font = UIFont(name: "SF Pro Display", size: 24)
-        let line1Text = "⦿ Access more than 1,000,000 people reviews ⭐"
-        let attributedString1 = NSMutableAttributedString(string: line1Text)
-        attributedString1.addAttribute(NSAttributedString.Key.paragraphStyle, value: bulletStyle(), range: NSRange(location: 0, length: attributedString1.length))
-        line1Label.attributedText = attributedString1
-        view.addSubview(line1Label)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        let line2Label = UILabel(frame: CGRect(x: 0, y: 450, width: view.frame.width, height: 30))
-        line2Label.textAlignment = .left
-        line2Label.font = UIFont(name: "SF Pro Display", size: 24)
-        let line2Text = "⦿ Save your library 📚"
-        let attributedString2 = NSMutableAttributedString(string: line2Text)
-        attributedString2.addAttribute(NSAttributedString.Key.paragraphStyle, value: bulletStyle(), range: NSRange(location: 0, length: attributedString2.length))
-        line2Label.attributedText = attributedString2
-        view.addSubview(line2Label)
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 29),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
         
-        let line3Label = UILabel(frame: CGRect(x: 0, y: 500, width: view.frame.width, height: 30))
-        line3Label.textAlignment = .left
-        line3Label.font = UIFont(name: "SF Pro Display", size: 24)
+        
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 0
+        textView.backgroundColor = .clear
+        textView.font = UIFont(name: "SF Pro Display", size: 24)
+        textView.textAlignment = .left
+        
+        let line1Text = "⦿ Access more than 1,000,000 people reviews ⭐\n"
+        let line2Text = "⦿ Save your library 📚\n"
         let line3Text = "⦿ Share your thoughts 🎤"
-        let attributedString3 = NSMutableAttributedString(string: line3Text)
-        attributedString3.addAttribute(NSAttributedString.Key.paragraphStyle, value: bulletStyle(), range: NSRange(location: 0, length: attributedString3.length))
-        line3Label.attributedText = attributedString3
-        view.addSubview(line3Label)
+        let bulletText = "\(line1Text)\(line2Text)\(line3Text)"
+        let attributedString = NSMutableAttributedString(string: bulletText)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 20, options: [:])]
+        paragraphStyle.defaultTabInterval = 20
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .font: textView.font ?? UIFont.systemFont(ofSize: 24),
+            .paragraphStyle: paragraphStyle
+        ]
+        attributedString.addAttributes(attributes, range: NSRange(location: 0, length: attributedString.length))
+        textView.attributedText = attributedString
         
-        let signInButton = UIButton(frame: CGRect(x: 50, y: 550, width: 150, height: 40))
+        view.addSubview(textView)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 29),
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            textView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
+        ])
+        
+        textView.sizeToFit()
+        textView.layoutIfNeeded()
+        
+        
+        let signInButton = UIButton()
         signInButton.setTitle("Sign in", for: .normal)
         signInButton.setTitleColor(.black, for: .normal)
         signInButton.backgroundColor = .white
         signInButton.layer.cornerRadius = 16
         signInButton.layer.borderWidth = 1
         signInButton.layer.borderColor = UIColor.black.cgColor
-        view.addSubview(signInButton)
         
-        let registerButton = UIButton(frame: CGRect(x: 225, y: 550, width: 150, height: 40))
+        let registerButton = UIButton()
         registerButton.setTitle("Register", for: .normal)
         registerButton.setTitleColor(.black, for: .normal)
         registerButton.backgroundColor = .white
         registerButton.layer.cornerRadius = 16
         registerButton.layer.borderWidth = 1
         registerButton.layer.borderColor = UIColor.black.cgColor
+        
+        view.addSubview(signInButton)
         view.addSubview(registerButton)
         
-        let facebookButton = UIButton(frame: CGRect(x: 50, y: 610, width: view.frame.width - 100, height: 40))
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
+            signInButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 35),
+            signInButton.widthAnchor.constraint(equalToConstant: 176),
+            signInButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            registerButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 35),
+            registerButton.widthAnchor.constraint(equalToConstant: 176),
+            registerButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        NSLayoutConstraint.activate([
+            registerButton.leadingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 8)
+        ])
+        
+        
+        let facebookButton = UIButton()
         facebookButton.setTitle("Continue with Facebook", for: .normal)
         facebookButton.setTitleColor(.white, for: .normal)
-        facebookButton.backgroundColor = .blue
+        facebookButton.backgroundColor = UIColor(red: 0, green: 0.52, blue: 1, alpha: 1)
         facebookButton.layer.cornerRadius = 16
+
         view.addSubview(facebookButton)
+
+        facebookButton.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            facebookButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            facebookButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            facebookButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 16),
+            facebookButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+
         
-        let appleButton = UIButton(frame: CGRect(x: 50, y: 670, width: view.frame.width - 100, height: 40))
+        let appleButton = UIButton()
         appleButton.setTitle("Continue with Apple", for: .normal)
         appleButton.setTitleColor(.white, for: .normal)
         appleButton.backgroundColor = .black
         appleButton.layer.cornerRadius = 16
+
         view.addSubview(appleButton)
-        
-        let termsLabel = UILabel(frame: CGRect(x: 0, y: 730, width: view.frame.width, height: 30))
-        termsLabel.text = "By continuing, you accept our Terms of Service and Privacy"
-        termsLabel.textAlignment = .center
-        view.addSubview(termsLabel)
+
+        appleButton.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            appleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            appleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            appleButton.topAnchor.constraint(equalTo: facebookButton.bottomAnchor, constant: 16),
+            appleButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+
+        let termsTextView = UITextView()
+        termsTextView.isEditable = false
+        termsTextView.isScrollEnabled = false
+        termsTextView.backgroundColor = .clear
+        termsTextView.font = UIFont.systemFont(ofSize: 16)
+        termsTextView.textAlignment = .center
+
+        let termsText = "By continuing, you are accepting our\nTerms of Service and Privacy"
+        let attributedText = NSMutableAttributedString(string: termsText)
+
+        let colorAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor(red: 0, green: 0.52, blue: 1, alpha: 1)
+        ]
+        attributedText.addAttributes(colorAttributes, range: (termsText as NSString).range(of: "Terms of Service"))
+        attributedText.addAttributes(colorAttributes, range: (termsText as NSString).range(of: "Privacy"))
+
+        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedText.length))
+        termsTextView.attributedText = attributedText
+
+        view.addSubview(termsTextView)
+
+        termsTextView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            termsTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            termsTextView.widthAnchor.constraint(equalToConstant: 321),
+            termsTextView.heightAnchor.constraint(equalToConstant: 44),
+            termsTextView.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 16)
+        ])
+
     }
     
     private func bulletStyle() -> NSParagraphStyle {
