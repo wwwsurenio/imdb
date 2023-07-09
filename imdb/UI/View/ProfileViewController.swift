@@ -171,7 +171,7 @@ class ProfileViewController: UIViewController {
         termsTextView.isEditable = false
         termsTextView.isScrollEnabled = false
         termsTextView.backgroundColor = .clear
-        termsTextView.font = UIFont.systemFont(ofSize: 16)
+        termsTextView.font = UIFont(name: "SF Pro Display", size: 16)
         termsTextView.textAlignment = .center
 
         let termsText = "By continuing, you are accepting our\nTerms of Service and Privacy"
