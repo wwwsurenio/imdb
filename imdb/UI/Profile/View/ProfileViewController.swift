@@ -43,11 +43,6 @@ class ProfileViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
             imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 29),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
@@ -92,44 +87,13 @@ class ProfileViewController: UIViewController {
         textView.sizeToFit()
         textView.layoutIfNeeded()
         
-        
-        let signInButton = UIButton()
-        signInButton.setTitle("Sign in", for: .normal)
-        signInButton.setTitleColor(.black, for: .normal)
-        signInButton.backgroundColor = .white
-        signInButton.layer.cornerRadius = 16
-        signInButton.layer.borderWidth = 1
-        signInButton.layer.borderColor = UIColor.black.cgColor
-        
-        let registerButton = UIButton()
-        registerButton.setTitle("Register", for: .normal)
-        registerButton.setTitleColor(.black, for: .normal)
-        registerButton.backgroundColor = .white
-        registerButton.layer.cornerRadius = 16
-        registerButton.layer.borderWidth = 1
-        registerButton.layer.borderColor = UIColor.black.cgColor
-        
-        view.addSubview(signInButton)
-        view.addSubview(registerButton)
-        
-        signInButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
-            signInButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 35),
-            signInButton.widthAnchor.constraint(equalToConstant: 176),
-            signInButton.heightAnchor.constraint(equalToConstant: 44),
-            
-            registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            registerButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 35),
-            registerButton.widthAnchor.constraint(equalToConstant: 176),
-            registerButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
-        NSLayoutConstraint.activate([
-            registerButton.leadingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 8)
-        ])
+        let signInButton = createRoundButton(title: "Sign in")
+        let registerButton = createRoundButton(title: "Register")
+        setupSignAndRegisterButtons(
+            signInButton: signInButton,
+            registerButton: registerButton,
+            textView: textView,
+            superview: view)
         
         
         let facebookButton = UIButton()
@@ -137,66 +101,65 @@ class ProfileViewController: UIViewController {
         facebookButton.setTitleColor(.white, for: .normal)
         facebookButton.backgroundColor = UIColor(red: 0, green: 0.52, blue: 1, alpha: 1)
         facebookButton.layer.cornerRadius = 16
-
+        
         view.addSubview(facebookButton)
-
+        
         facebookButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             facebookButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             facebookButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             facebookButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 16),
             facebookButton.heightAnchor.constraint(equalToConstant: 44)
         ])
-
+        
         
         let appleButton = UIButton()
         appleButton.setTitle("Continue with Apple", for: .normal)
         appleButton.setTitleColor(.white, for: .normal)
         appleButton.backgroundColor = .black
         appleButton.layer.cornerRadius = 16
-
+        
         view.addSubview(appleButton)
-
+        
         appleButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             appleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             appleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             appleButton.topAnchor.constraint(equalTo: facebookButton.bottomAnchor, constant: 16),
             appleButton.heightAnchor.constraint(equalToConstant: 44)
         ])
-
+        
         let termsTextView = UITextView()
         termsTextView.isEditable = false
         termsTextView.isScrollEnabled = false
         termsTextView.backgroundColor = .clear
         termsTextView.font = UIFont(name: "SF Pro Display", size: 16)
         termsTextView.textAlignment = .center
-
+        
         let termsText = "By continuing, you are accepting our\nTerms of Service and Privacy"
         let attributedText = NSMutableAttributedString(string: termsText)
-
+        
         let colorAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor(red: 0, green: 0.52, blue: 1, alpha: 1)
         ]
         attributedText.addAttributes(colorAttributes, range: (termsText as NSString).range(of: "Terms of Service"))
         attributedText.addAttributes(colorAttributes, range: (termsText as NSString).range(of: "Privacy"))
-
+        
         attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedText.length))
         termsTextView.attributedText = attributedText
-
+        
         view.addSubview(termsTextView)
-
+        
         termsTextView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             termsTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             termsTextView.widthAnchor.constraint(equalToConstant: 321),
             termsTextView.heightAnchor.constraint(equalToConstant: 44),
             termsTextView.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 16)
         ])
-
     }
     
     private func bulletStyle() -> NSParagraphStyle {
@@ -209,4 +172,37 @@ class ProfileViewController: UIViewController {
         return paragraphStyle
     }
     
+    func createRoundButton(title: String) -> UIButton {
+        let roundButton = RoundButton()
+        roundButton.setTitle(title, for: .normal)
+        return roundButton
+    }
+    
+    private func setupSignAndRegisterButtons(signInButton: UIButton, registerButton: UIButton, textView: UITextView, superview: UIView) {
+        superview.addSubview(signInButton)
+        superview.addSubview(registerButton)
+        
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            signInButton.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 17),
+            signInButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 35),
+            signInButton.widthAnchor.constraint(equalToConstant: 176),
+            
+            registerButton.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -16),
+            registerButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 35),
+            registerButton.widthAnchor.constraint(equalToConstant: 176),
+        ])
+        
+        NSLayoutConstraint.activate([
+            registerButton.leadingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 8)
+        ])
+    }
+    
+    
+    // Завести свой класс Label
+    // Настроить в отдельной функции NSAttributedString
+    // Вынести настройки блоков в отдельные функции
+    // Завести свой класс для социальных кнопок
 }
