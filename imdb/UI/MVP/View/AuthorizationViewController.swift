@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  AuthenticationViewController.swift
 //  imdb
 //
 //  Created by User01 on 1/7/23.

@@ -1,5 +1,5 @@
 //
-//  ProfilePresenter.swift
+//  AuthenticatioPresenter.swift
 //  imdb
 //
 //  Created by User01 on 12/7/23.
@@ -7,25 +7,25 @@
 
 import Foundation
 
-protocol ProfilePresenterInput {
+protocol AuthenticatioPresenterInput {
     //connect view
     
 }
 
-protocol ProfilePresenterOutput: AnyObject {
+protocol AuthenticatioPresenterOutput: AnyObject {
     
 }
 
-class ProfilePresenter {
+class AuthenticatioPresenter {
     
-    weak var output: ProfilePresenterOutput?
+    weak var output: AuthenticatioPresenterOutput?
     
     
 }
 
-//MARK: - Profile Presenter Input
+//MARK: - Authenticatio Presenter Input
 
-extension ProfilePresenter: ProfilePresenterInput {
+extension AuthenticatioPresenter: AuthenticatioPresenterInput {
     
 }
 
