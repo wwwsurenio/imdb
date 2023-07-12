@@ -96,12 +96,11 @@ class AuthenticationViewController: UIViewController {
             superview: view)
         
         
-        let facebookButton = UIButton()
-        facebookButton.setTitle("Continue with Facebook", for: .normal)
-        facebookButton.setTitleColor(.white, for: .normal)
-        facebookButton.backgroundColor = UIColor(red: 0, green: 0.52, blue: 1, alpha: 1)
-        facebookButton.layer.cornerRadius = 16
-        
+        let facebookButton = createSocialLoginButton(
+            title: "Continue with Facebook",
+            buttonColor: UIColor(red: 0, green: 0.52, blue: 1, alpha: 1),
+            textColor: .white)
+       
         view.addSubview(facebookButton)
         
         facebookButton.translatesAutoresizingMaskIntoConstraints = false
@@ -114,11 +113,10 @@ class AuthenticationViewController: UIViewController {
         ])
         
         
-        let appleButton = UIButton()
-        appleButton.setTitle("Continue with Apple", for: .normal)
-        appleButton.setTitleColor(.white, for: .normal)
-        appleButton.backgroundColor = .black
-        appleButton.layer.cornerRadius = 16
+        let appleButton = createSocialLoginButton(
+            title: "Continue with Apple",
+            buttonColor: .black,
+            textColor: .white)
         
         view.addSubview(appleButton)
         
@@ -176,6 +174,14 @@ class AuthenticationViewController: UIViewController {
         let roundButton = RoundButton()
         roundButton.setTitle(title, for: .normal)
         return roundButton
+    }
+    
+    func createSocialLoginButton(title: String, buttonColor: UIColor, textColor: UIColor) -> UIButton {
+        let socialLoginButton = RoundButton()
+        socialLoginButton.setTitle(title, for: .normal)
+        socialLoginButton.backgroundColor = buttonColor
+        socialLoginButton.setTitleColor(textColor, for: .normal)
+        return socialLoginButton
     }
     
     private func setupSignAndRegisterButtons(signInButton: UIButton, registerButton: UIButton, textView: UITextView, superview: UIView) {
