@@ -15,16 +15,10 @@ class AuthenticationViewController: UIViewController {
         
         self.view.backgroundColor = .white
         // Set up the UI elements
-        let titleLabel = UILabel()
-        titleLabel.text = "Authorization"
+        let titleLabel = setupTitleLabel(label: "Authorization")
         titleLabel.font = UIFont.boldSystemFont(ofSize: 54)
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .black
-        titleLabel.numberOfLines = 0
-        titleLabel.adjustsFontSizeToFitWidth = true
-        
         view.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -33,13 +27,9 @@ class AuthenticationViewController: UIViewController {
         ])
         
         let imageView = UIImageView()
-        // Set the image for the UIImageView
         imageView.image = UIImage(named: "image.png")
-        
         view.addSubview(titleLabel)
         view.addSubview(imageView)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -170,6 +160,12 @@ class AuthenticationViewController: UIViewController {
         return paragraphStyle
     }
     
+    func setupTitleLabel(label: String) -> UILabel {
+        let titleLabel = TitleLabel()
+        titleLabel.text = label
+        return titleLabel
+    }
+    
     func createRoundButton(title: String) -> UIButton {
         let roundButton = RoundButton()
         roundButton.setTitle(title, for: .normal)
@@ -204,6 +200,23 @@ class AuthenticationViewController: UIViewController {
         NSLayoutConstraint.activate([
             registerButton.leadingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 8)
         ])
+    }
+    
+    func activateConstraints(for views: [UIView],
+                             topAnchor: NSLayoutYAxisAnchor,
+                             leadingAnchor: NSLayoutXAxisAnchor,
+                             trailingAnchor: NSLayoutXAxisAnchor,
+                             bottomAnchor: NSLayoutYAxisAnchor,
+                             constants: UIEdgeInsets = .zero) {
+        for view in views {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: topAnchor, constant: constants.top),
+                view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constants.left),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constants.right),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -constants.bottom)
+            ])
+        }
     }
     
     
