@@ -18,7 +18,7 @@ class AuthenticationViewController: UIViewController {
         let titleLabel = setupTitleLabel(label: "Authorization")
         titleLabel.font = UIFont.boldSystemFont(ofSize: 54)
         view.addSubview(titleLabel)
-
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -90,7 +90,7 @@ class AuthenticationViewController: UIViewController {
             title: "Continue with Facebook",
             buttonColor: UIColor(red: 0, green: 0.52, blue: 1, alpha: 1),
             textColor: .white)
-       
+        
         view.addSubview(facebookButton)
         
         facebookButton.translatesAutoresizingMaskIntoConstraints = false
@@ -126,16 +126,7 @@ class AuthenticationViewController: UIViewController {
         termsTextView.font = UIFont(name: "SF Pro Display", size: 16)
         termsTextView.textAlignment = .center
         
-        let termsText = "By continuing, you are accepting our\nTerms of Service and Privacy"
-        let attributedText = NSMutableAttributedString(string: termsText)
-        
-        let colorAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor(red: 0, green: 0.52, blue: 1, alpha: 1)
-        ]
-        attributedText.addAttributes(colorAttributes, range: (termsText as NSString).range(of: "Terms of Service"))
-        attributedText.addAttributes(colorAttributes, range: (termsText as NSString).range(of: "Privacy"))
-        
-        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedText.length))
+        let attributedText = AttributedStringHelper.makeTermsAttributedString()
         termsTextView.attributedText = attributedText
         
         view.addSubview(termsTextView)
