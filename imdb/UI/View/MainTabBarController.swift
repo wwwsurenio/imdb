@@ -22,9 +22,9 @@ class MainTabBarController: UITabBarController {
         movieNavigationController.tabBarItem = UITabBarItem(title: nil, image: navigationImage, tag: 0)
         
         
-        // Create the ProfileViewController
-        let profileViewController = ProfileViewController()
-        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        // Create the AuthenticationViewController
+        let authenticationViewController = AuthenticationViewController()
+        let profileNavigationController = UINavigationController(rootViewController: authenticationViewController)
         profileNavigationController.tabBarItem = UITabBarItem(title: nil, image: profileImage, tag: 1)
         profileNavigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         
