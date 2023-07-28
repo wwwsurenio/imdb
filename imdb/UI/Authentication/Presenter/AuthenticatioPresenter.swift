@@ -9,7 +9,7 @@
 
 import Foundation
 
-protocol AuthenticatioPresenterInput {
+protocol AuthenticatioPresenterInput: AnyObject {
     func login(username: String, password: String)
     func register(username: String, password: String)
 }
@@ -18,11 +18,17 @@ protocol AuthenticatioPresenterOutput: AnyObject {
     func showLoading()
     func hideLoading()
     func showErrorMessage(_ message: String)
-    func showHomePage()
+    func showProfileScreen()
 }
 
 class AuthenticatioPresenter {
+    var authenticationModel: AuthenticationModelInput
     weak var output: AuthenticatioPresenterOutput?
+    
+    init(authenticationModel: AuthenticationModelInput, output: AuthenticatioPresenterOutput? = nil) {
+        self.authenticationModel = authenticationModel
+        self.output = output
+    }
 }
 
 // MARK: - Authenticatio Presenter Input
@@ -42,4 +48,8 @@ extension AuthenticatioPresenter: AuthenticatioPresenterInput {
         // Handle success and failure cases
         
     }
+}
+
+extension AuthenticatioPresenter: AuthenticationModelOutput {
+    
 }

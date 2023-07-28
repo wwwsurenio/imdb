@@ -9,6 +9,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
+    
     let profileImage = UIImage(systemName: "person.crop.circle")
     let navigationImage = UIImage(systemName: "safari")
     
@@ -21,9 +22,14 @@ class MainTabBarController: UITabBarController {
         let movieNavigationController = UINavigationController(rootViewController: movieViewController)
         movieNavigationController.tabBarItem = UITabBarItem(title: nil, image: navigationImage, tag: 0)
         
+        // Create the AuthenticationViewController and connect with presenter
+        let authenticationModel = AuthenticationModel()
+        let presenter = AuthenticatioPresenter(authenticationModel: authenticationModel)
+        let authenticationViewController = AuthenticationViewController(presenter: presenter)
         
-        // Create the AuthenticationViewController
-        let authenticationViewController = AuthenticationViewController()
+        authenticationModel.output = presenter
+        presenter.output = authenticationViewController
+        
         let profileNavigationController = UINavigationController(rootViewController: authenticationViewController)
         profileNavigationController.tabBarItem = UITabBarItem(title: nil, image: profileImage, tag: 1)
         profileNavigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)

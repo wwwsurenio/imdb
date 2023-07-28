@@ -10,6 +10,17 @@ import UIKit
 
 class AuthenticationViewController: UIViewController {
     
+    var presenter: AuthenticatioPresenterInput
+    
+    init(presenter: AuthenticatioPresenterInput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -215,4 +226,24 @@ class AuthenticationViewController: UIViewController {
     // Настроить в отдельной функции NSAttributedString
     // Вынести настройки блоков в отдельные функции
     // Завести свой класс для социальных кнопок
+}
+
+extension AuthenticationViewController: AuthenticatioPresenterOutput {
+    func showLoading() {
+        
+    }
+    
+    func hideLoading() {
+        
+    }
+    
+    func showErrorMessage(_ message: String) {
+        
+    }
+    
+    func showProfileScreen() {
+        
+    }
+    
+    
 }
