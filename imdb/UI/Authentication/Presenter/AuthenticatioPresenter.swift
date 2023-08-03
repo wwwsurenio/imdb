@@ -51,5 +51,13 @@ extension AuthenticatioPresenter: AuthenticatioPresenterInput {
 }
 
 extension AuthenticatioPresenter: AuthenticationModelOutput {
+    func didCreateSessionSuccess(withToken token: String) {
+        
+    }
+    
+    func didCreateSessionFail(withError error: Error) {
+        
+    }
+    
     
 }
