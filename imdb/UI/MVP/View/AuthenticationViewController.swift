@@ -10,9 +10,9 @@ import UIKit
 
 class AuthenticationViewController: UIViewController {
     
-    var presenter: AuthenticatioPresenterInput
+    var presenter: AuthenticationPresenterInput
     
-    init(presenter: AuthenticatioPresenterInput) {
+    init(presenter: AuthenticationPresenterInput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,8 +23,8 @@ class AuthenticationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = .white
+        
         // Set up the UI elements
         let titleLabel = setupTitleLabel(label: "Authorization")
         titleLabel.font = UIFont.boldSystemFont(ofSize: 54)
@@ -150,6 +150,13 @@ class AuthenticationViewController: UIViewController {
             termsTextView.heightAnchor.constraint(equalToConstant: 44),
             termsTextView.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 16)
         ])
+        
+        signInButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+    }
+    
+    @objc func didTapLoginButton() {
+        // Call the createRequestToken function through the presenter
+        presenter.createRequestToken()
     }
     
     private func bulletStyle() -> NSParagraphStyle {
@@ -228,7 +235,7 @@ class AuthenticationViewController: UIViewController {
     // Завести свой класс для социальных кнопок
 }
 
-extension AuthenticationViewController: AuthenticatioPresenterOutput {
+extension AuthenticationViewController: AuthenticationPresenterOutput {
     func showLoading() {
         
     }
@@ -244,6 +251,6 @@ extension AuthenticationViewController: AuthenticatioPresenterOutput {
     func showProfileScreen() {
         
     }
-    
-    
 }
+
+

@@ -55,6 +55,7 @@ extension AuthenticationModel: AuthenticationModelInput {
                 self?.output?.didCreateSessionFail(withError: NSError(domain: "UnknownError", code: 0, userInfo: nil))
             }
         }
+        print("request made")
 
         dataTask.resume()
     }

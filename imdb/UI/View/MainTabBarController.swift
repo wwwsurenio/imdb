@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController {
         
         // Create the AuthenticationViewController and connect with presenter
         let authenticationModel = AuthenticationModel()
-        let presenter = AuthenticatioPresenter(authenticationModel: authenticationModel)
+        let presenter = AuthenticationPresenter(authenticationModel: authenticationModel)
         let authenticationViewController = AuthenticationViewController(presenter: presenter)
         
         authenticationModel.output = presenter

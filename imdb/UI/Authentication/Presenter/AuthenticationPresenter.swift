@@ -9,23 +9,24 @@
 
 import Foundation
 
-protocol AuthenticatioPresenterInput: AnyObject {
+protocol AuthenticationPresenterInput: AnyObject {
     func login(username: String, password: String)
     func register(username: String, password: String)
+    func createRequestToken()
 }
 
-protocol AuthenticatioPresenterOutput: AnyObject {
+protocol AuthenticationPresenterOutput: AnyObject {
     func showLoading()
     func hideLoading()
     func showErrorMessage(_ message: String)
     func showProfileScreen()
 }
 
-class AuthenticatioPresenter {
+class AuthenticationPresenter {
     var authenticationModel: AuthenticationModelInput
-    weak var output: AuthenticatioPresenterOutput?
+    weak var output: AuthenticationPresenterOutput?
     
-    init(authenticationModel: AuthenticationModelInput, output: AuthenticatioPresenterOutput? = nil) {
+    init(authenticationModel: AuthenticationModelInput, output: AuthenticationPresenterOutput? = nil) {
         self.authenticationModel = authenticationModel
         self.output = output
     }
@@ -33,7 +34,12 @@ class AuthenticatioPresenter {
 
 // MARK: - Authenticatio Presenter Input
 
-extension AuthenticatioPresenter: AuthenticatioPresenterInput {
+extension AuthenticationPresenter: AuthenticationPresenterInput {
+    
+    func createRequestToken() {
+            authenticationModel.createRequestToken()
+        }
+    
     
     func login(username: String, password: String) {
         // Implement the login logic here
@@ -50,7 +56,7 @@ extension AuthenticatioPresenter: AuthenticatioPresenterInput {
     }
 }
 
-extension AuthenticatioPresenter: AuthenticationModelOutput {
+extension AuthenticationPresenter: AuthenticationModelOutput {
     func didCreateSessionSuccess(withToken token: String) {
         
     }
