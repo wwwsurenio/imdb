@@ -20,6 +20,7 @@ protocol AuthenticationPresenterOutput: AnyObject {
     func hideLoading()
     func showErrorMessage(_ message: String)
     func showProfileScreen()
+    func openAuthURL(url: URL)
 }
 
 class AuthenticationPresenter {
@@ -37,8 +38,8 @@ class AuthenticationPresenter {
 extension AuthenticationPresenter: AuthenticationPresenterInput {
     
     func createRequestToken() {
-            authenticationModel.createRequestToken()
-        }
+        authenticationModel.createRequestToken()
+    }
     
     
     func login(username: String, password: String) {
@@ -58,7 +59,13 @@ extension AuthenticationPresenter: AuthenticationPresenterInput {
 
 extension AuthenticationPresenter: AuthenticationModelOutput {
     func didCreateSessionSuccess(withToken token: String) {
-        
+        DispatchQueue.main.async {
+            let authURLString = "https://www.themoviedb.org/authenticate/\(token)"
+            guard let authURL = URL(string: authURLString) else {
+                return
+            }
+            self.output?.openAuthURL(url: authURL)
+        }
     }
     
     func didCreateSessionFail(withError error: Error) {

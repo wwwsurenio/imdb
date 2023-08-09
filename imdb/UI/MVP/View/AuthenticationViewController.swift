@@ -236,6 +236,11 @@ class AuthenticationViewController: UIViewController {
 }
 
 extension AuthenticationViewController: AuthenticationPresenterOutput {
+    func openAuthURL(url: URL) {
+        let authViewController = AuthWKWebViewController(url: url)
+        navigationController?.pushViewController(authViewController, animated: true)
+    }
+    
     func showLoading() {
         
     }

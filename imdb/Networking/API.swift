@@ -79,3 +79,7 @@ extension URLSession {
         return dataTask(with: api.urlRequest, completionHandler: completionHandler)
     }
 }
+
+func completionHandler(data: Data?, response: URLResponse?, error: Error?) -> Void {
+    
+}

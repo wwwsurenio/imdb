@@ -32,6 +32,7 @@
 		59DC20A129FBD38600D40E87 /* MovieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DC20A029FBD38600D40E87 /* MovieController.swift */; };
 		59DC20A329FBD39C00D40E87 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DC20A229FBD39C00D40E87 /* MovieModel.swift */; };
 		59DC20A72A09232900D40E87 /* MovieTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DC20A62A09232900D40E87 /* MovieTableCell.swift */; };
+		59DDA1232A83844300268819 /* AuthWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDA1222A83844300268819 /* AuthWKWebViewController.swift */; };
 		59F74C532A3F088400EEB7CD /* MoviePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F74C522A3F088400EEB7CD /* MoviePosterCell.swift */; };
 		59F74C562A3F0DFE00EEB7CD /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F74C552A3F0DFE00EEB7CD /* URL+Extensions.swift */; };
 		59F74C582A3F19DF00EEB7CD /* MovieTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F74C572A3F19DF00EEB7CD /* MovieTitleCell.swift */; };
@@ -68,6 +69,7 @@
 		59DC20A029FBD38600D40E87 /* MovieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieController.swift; sourceTree = "<group>"; };
 		59DC20A229FBD39C00D40E87 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		59DC20A62A09232900D40E87 /* MovieTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableCell.swift; sourceTree = "<group>"; };
+		59DDA1222A83844300268819 /* AuthWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWKWebViewController.swift; sourceTree = "<group>"; };
 		59F74C522A3F088400EEB7CD /* MoviePosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCell.swift; sourceTree = "<group>"; };
 		59F74C552A3F0DFE00EEB7CD /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		59F74C572A3F19DF00EEB7CD /* MovieTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTitleCell.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				599218942A5057CA00818F70 /* AuthenticationViewController.swift */,
 				592A51DB2A6D35810085CCD2 /* LoginViewController.swift */,
 				592A51DD2A6D35900085CCD2 /* RegisterViewController.swift */,
+				59DDA1222A83844300268819 /* AuthWKWebViewController.swift */,
 			);
 			name = View;
 			path = ../MVP/View;
@@ -407,6 +410,7 @@
 				59DC20A72A09232900D40E87 /* MovieTableCell.swift in Sources */,
 				5925CC982A73D12D003497A2 /* AuthenticationModel.swift in Sources */,
 				597EA5392A449D0000FE610D /* UIImage+Extensions.swift in Sources */,
+				59DDA1232A83844300268819 /* AuthWKWebViewController.swift in Sources */,
 				599218952A5057CA00818F70 /* AuthenticationViewController.swift in Sources */,
 				59C4342F2A2F45300068919D /* API.swift in Sources */,
 				592A51DC2A6D35810085CCD2 /* LoginViewController.swift in Sources */,
