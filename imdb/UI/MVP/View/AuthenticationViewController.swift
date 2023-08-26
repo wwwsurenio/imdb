@@ -241,6 +241,12 @@ extension AuthenticationViewController: AuthenticationPresenterOutput {
         navigationController?.pushViewController(authViewController, animated: true)
     }
     
+    func dismissWebView() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func showLoading() {
         
     }

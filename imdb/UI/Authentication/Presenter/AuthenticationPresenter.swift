@@ -1,11 +1,11 @@
 //
-//  AuthenticatioPresenter.swift
+//  AuthenticationPresenter.swift
 //  imdb
 //
 //  Created by User01 on 12/7/23.
 //
 
-// AuthenticatioPresenter.swift
+// AuthenticationPresenter.swift
 
 import Foundation
 
@@ -21,6 +21,7 @@ protocol AuthenticationPresenterOutput: AnyObject {
     func showErrorMessage(_ message: String)
     func showProfileScreen()
     func openAuthURL(url: URL)
+    func dismissWebView()
 }
 
 class AuthenticationPresenter {
