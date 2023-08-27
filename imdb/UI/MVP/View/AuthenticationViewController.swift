@@ -10,10 +10,21 @@ import UIKit
 
 class AuthenticationViewController: UIViewController {
     
+    var presenter: AuthenticationPresenterInput
+    
+    init(presenter: AuthenticationPresenterInput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = .white
+        
         // Set up the UI elements
         let titleLabel = setupTitleLabel(label: "Authorization")
         titleLabel.font = UIFont.boldSystemFont(ofSize: 54)
@@ -139,6 +150,13 @@ class AuthenticationViewController: UIViewController {
             termsTextView.heightAnchor.constraint(equalToConstant: 44),
             termsTextView.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 16)
         ])
+        
+        signInButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+    }
+    
+    @objc func didTapLoginButton() {
+        // Call the createRequestToken function through the presenter
+        presenter.createRequestToken()
     }
     
     private func bulletStyle() -> NSParagraphStyle {
@@ -216,3 +234,34 @@ class AuthenticationViewController: UIViewController {
     // Вынести настройки блоков в отдельные функции
     // Завести свой класс для социальных кнопок
 }
+
+extension AuthenticationViewController: AuthenticationPresenterOutput {
+    func openAuthURL(url: URL) {
+        let authViewController = AuthWKWebViewController(url: url)
+        navigationController?.pushViewController(authViewController, animated: true)
+    }
+    
+    func dismissWebView() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func showLoading() {
+        
+    }
+    
+    func hideLoading() {
+        
+    }
+    
+    func showErrorMessage(_ message: String) {
+        
+    }
+    
+    func showProfileScreen() {
+        
+    }
+}
+
+
