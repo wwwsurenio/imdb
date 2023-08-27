@@ -46,12 +46,12 @@ class AuthWKWebViewController: UIViewController, WKNavigationDelegate {
         }
         
         // Check if the header "Authentication-Callback" exists
-        if let authCallbackValue = httpResponse.allHeaderFields["Authentication-Callback"] as? String {
+        if let authCallbackValue = httpResponse.allHeaderFields["authentication-callback"] as? String {
             // Process the authCallbackValue as needed
             print("Authentication-Callback value: \(authCallbackValue)")
             
             // Close the WKWebView after successful login
-            self.dismiss(animated: true, completion: nil)
+			self.navigationController?.popViewController(animated: true)
         }
         
         decisionHandler(.allow)
