@@ -14,6 +14,7 @@
 		592A51DE2A6D35900085CCD2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592A51DD2A6D35900085CCD2 /* RegisterViewController.swift */; };
 		592A51E02A6D3AD20085CCD2 /* AttributedStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592A51DF2A6D3AD20085CCD2 /* AttributedStringHelper.swift */; };
 		597EA5392A449D0000FE610D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597EA5382A449D0000FE610D /* UIImage+Extensions.swift */; };
+		5991C03D2AACBADE0065D71D /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5991C03C2AACBADE0065D71D /* UserProfileViewController.swift */; };
 		599218932A4F5A1F00818F70 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599218922A4F5A1F00818F70 /* MainTabBarController.swift */; };
 		599218952A5057CA00818F70 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599218942A5057CA00818F70 /* AuthenticationViewController.swift */; };
 		599218972A5057DB00818F70 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599218962A5057DB00818F70 /* FavoritesViewController.swift */; };
@@ -49,6 +50,7 @@
 		592A51DD2A6D35900085CCD2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		592A51DF2A6D3AD20085CCD2 /* AttributedStringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringHelper.swift; sourceTree = "<group>"; };
 		597EA5382A449D0000FE610D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		5991C03C2AACBADE0065D71D /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		599218922A4F5A1F00818F70 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		599218942A5057CA00818F70 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		599218962A5057DB00818F70 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5991C0382AACBA9F0065D71D /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				5991C03B2AACBACC0065D71D /* Model */,
+				5991C03A2AACBAC20065D71D /* View */,
+				5991C0392AACBAB80065D71D /* Presenter */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		5991C0392AACBAB80065D71D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		5991C03A2AACBAC20065D71D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5991C03C2AACBADE0065D71D /* UserProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5991C03B2AACBACC0065D71D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		599603002A5E903200890AF1 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +307,7 @@
 		59DC209A29FBD21A00D40E87 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5991C0382AACBA9F0065D71D /* UserProfile */,
 				5996030E2A5E911A00890AF1 /* Design System */,
 				599603092A5E90BA00890AF1 /* MovieList */,
 				599603042A5E905600890AF1 /* MovieDetails */,
@@ -407,6 +442,7 @@
 				599603122A5E968500890AF1 /* AuthenticationPresenter.swift in Sources */,
 				592A51DA2A682C040085CCD2 /* TitleLabel.swift in Sources */,
 				59DC208829FBD17900D40E87 /* SceneDelegate.swift in Sources */,
+				5991C03D2AACBADE0065D71D /* UserProfileViewController.swift in Sources */,
 				59DC20A72A09232900D40E87 /* MovieTableCell.swift in Sources */,
 				5925CC982A73D12D003497A2 /* AuthenticationModel.swift in Sources */,
 				597EA5392A449D0000FE610D /* UIImage+Extensions.swift in Sources */,
