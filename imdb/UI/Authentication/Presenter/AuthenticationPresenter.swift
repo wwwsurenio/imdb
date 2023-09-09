@@ -27,7 +27,7 @@ protocol AuthenticationPresenterOutput: AnyObject {
 class AuthenticationPresenter {
     var authenticationModel: AuthenticationModelInput
     weak var output: AuthenticationPresenterOutput?
-    
+
     init(authenticationModel: AuthenticationModelInput, output: AuthenticationPresenterOutput? = nil) {
         self.authenticationModel = authenticationModel
         self.output = output

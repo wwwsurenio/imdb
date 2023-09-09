@@ -157,6 +157,10 @@ class AuthenticationViewController: UIViewController {
     @objc func didTapLoginButton() {
         // Call the createRequestToken function through the presenter
         presenter.createRequestToken()
+        
+        // Set the AuthWKWebViewController's reference to the presenter
+        if let authWebViewController = navigationController?.viewControllers.last as? AuthWKWebViewController {
+        }
     }
     
     private func bulletStyle() -> NSParagraphStyle {
@@ -242,9 +246,12 @@ extension AuthenticationViewController: AuthenticationPresenterOutput {
     }
     
     func dismissWebView() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-        }
+        // Dismiss the AuthWKWebViewController
+        self.navigationController?.popViewController(animated: true)
+        
+        // After dismissing the web view, you can present the UserProfileViewController
+        let userProfileViewController = UserProfileViewController() // Replace with the actual instantiation of your UserProfileViewController
+        self.navigationController?.pushViewController(userProfileViewController, animated: true)
     }
     
     func showLoading() {
@@ -260,7 +267,14 @@ extension AuthenticationViewController: AuthenticationPresenterOutput {
     }
     
     func showProfileScreen() {
-        
+        // Present the UserProfileViewController
+        let userProfileViewController = UserProfileViewController()
+        self.navigationController?.pushViewController(userProfileViewController, animated: true)
+    }
+    
+    func authenticationDidSucceed() {
+        let userProfileViewController = UserProfileViewController()
+        navigationController?.pushViewController(userProfileViewController, animated: true)
     }
 }
 
