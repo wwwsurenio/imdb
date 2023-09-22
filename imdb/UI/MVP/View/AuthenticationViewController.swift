@@ -8,12 +8,19 @@
 import Foundation
 import UIKit
 
+protocol AuthenticationViewControllerOutput: AnyObject {
+    func login(username: String, password: String)
+    func register(username: String, password: String)
+    func createRequestToken()
+    func didRecieve(authHeader: String)
+}
+
 class AuthenticationViewController: UIViewController {
     
-    var presenter: AuthenticationPresenterInput
+    var output: AuthenticationViewControllerOutput
     
-    init(presenter: AuthenticationPresenterInput) {
-        self.presenter = presenter
+    init(output: AuthenticationViewControllerOutput) {
+        self.output = output
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -156,11 +163,7 @@ class AuthenticationViewController: UIViewController {
     
     @objc func didTapLoginButton() {
         // Call the createRequestToken function through the presenter
-        presenter.createRequestToken()
-        
-        // Set the AuthWKWebViewController's reference to the presenter
-        if let authWebViewController = navigationController?.viewControllers.last as? AuthWKWebViewController {
-        }
+        output.createRequestToken()
     }
     
     private func bulletStyle() -> NSParagraphStyle {
@@ -239,9 +242,11 @@ class AuthenticationViewController: UIViewController {
     // Завести свой класс для социальных кнопок
 }
 
+// MARK: - AuthenticationPresenterOutput
 extension AuthenticationViewController: AuthenticationPresenterOutput {
     func openAuthURL(url: URL) {
         let authViewController = AuthWKWebViewController(url: url)
+        authViewController.delegate = self
         navigationController?.pushViewController(authViewController, animated: true)
     }
     
@@ -272,10 +277,13 @@ extension AuthenticationViewController: AuthenticationPresenterOutput {
         self.navigationController?.pushViewController(userProfileViewController, animated: true)
     }
     
-    func authenticationDidSucceed() {
-        let userProfileViewController = UserProfileViewController()
-        navigationController?.pushViewController(userProfileViewController, animated: true)
-    }
 }
 
+//MARK: - AuthWKWebViewControllerDelegate
+extension AuthenticationViewController: AuthWKWebViewControllerDelegate {
+   
+    func authenticationDidSucceed(header: String) {
+        output.didRecieve(authHeader: header)
+    }
+}
 

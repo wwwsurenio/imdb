@@ -9,11 +9,6 @@
 
 import Foundation
 
-protocol AuthenticationPresenterInput: AnyObject {
-    func login(username: String, password: String)
-    func register(username: String, password: String)
-    func createRequestToken()
-}
 
 protocol AuthenticationPresenterOutput: AnyObject {
     func showLoading()
@@ -36,8 +31,8 @@ class AuthenticationPresenter {
 
 // MARK: - Authenticatio Presenter Input
 
-extension AuthenticationPresenter: AuthenticationPresenterInput {
-    
+extension AuthenticationPresenter: AuthenticationViewControllerOutput {
+
     func createRequestToken() {
         authenticationModel.createRequestToken()
     }
@@ -55,6 +50,20 @@ extension AuthenticationPresenter: AuthenticationPresenterInput {
         // Call the API to register the user
         // Handle success and failure cases
         
+    }
+    
+    func didRecieve(authHeader: String) {
+        if let url = URL(string: authHeader), let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+            // Search for the "request_token" query parameter
+            if let requestToken = queryItems.first(where: { $0.name == "request_token" })?.value {
+                authenticationModel.createSessionID(requestToken: requestToken)
+            } else {
+                print("request_token not found")
+            }
+        } else {
+            print("Invalid URL")
+        }
+       
     }
 }
 

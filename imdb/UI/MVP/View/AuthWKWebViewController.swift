@@ -10,12 +10,11 @@ import WebKit
 import UIKit
 
 protocol AuthWKWebViewControllerDelegate: AnyObject {
-    func authenticationDidSucceed()
+    func authenticationDidSucceed(header: String)
 }
 
 
 class AuthWKWebViewController: UIViewController, WKNavigationDelegate {
-    
     weak var delegate: AuthWKWebViewControllerDelegate?
     var webView: WKWebView!
     var initialURL: URL?
@@ -57,7 +56,7 @@ class AuthWKWebViewController: UIViewController, WKNavigationDelegate {
             print("Authentication-Callback value: \(authCallbackValue)")
             
             // Notify the delegate of successful authentication
-            delegate?.authenticationDidSucceed()
+            delegate?.authenticationDidSucceed(header: authCallbackValue)
             
             // Close the WKWebView after successful login
             self.navigationController?.popViewController(animated: true)

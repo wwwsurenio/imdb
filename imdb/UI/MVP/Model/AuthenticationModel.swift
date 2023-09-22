@@ -9,6 +9,7 @@ import Foundation
 
 protocol AuthenticationModelInput: AnyObject {
     func createRequestToken()
+    func createSessionID(requestToken: String)
 }
 
 protocol AuthenticationModelOutput: AnyObject {
@@ -44,5 +45,9 @@ extension AuthenticationModel: AuthenticationModelInput {
         }
         
         dataTask.resume()
+    }
+    
+    func createSessionID(requestToken: String) {
+        
     }
 }
